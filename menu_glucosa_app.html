@@ -35,18 +35,41 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
 .rule-dot{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;margin-top:1px;font-weight:700}
 .rd-yes{background:#d1fae5;color:#065f46}.rd-no{background:#fee2e2;color:#991b1b}
 .rules-card{background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:4px 14px}
-.specialist-badge{display:flex;align-items:center;gap:10px;background:linear-gradient(135deg,#d8f3dc,#b7e4c7);border-radius:14px;padding:12px 14px;margin-bottom:14px}
+/* Chat */
+.specialist-badge{display:flex;align-items:center;gap:10px;background:linear-gradient(135deg,#d8f3dc,#b7e4c7);border-radius:14px;padding:12px 14px;margin-bottom:12px}
 .badge-avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#2d6a4f,#40916c);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
 .badge-name{font-weight:700;color:#1b4332;font-size:14px}
 .badge-role{color:#2d6a4f;font-size:12px;margin-top:2px}
-.quick-questions{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
-.qq{font-size:12px;background:#f0fdf4;border:1px solid #86efac;border-radius:16px;padding:6px 12px;cursor:pointer;color:#166534;font-weight:500;transition:background 0.15s;text-align:left}
+.chat-cats{display:flex;overflow-x:auto;gap:6px;margin-bottom:10px;padding-bottom:2px;scrollbar-width:none}
+.chat-cats::-webkit-scrollbar{display:none}
+.chat-cat-btn{flex-shrink:0;font-size:11.5px;font-weight:600;padding:5px 12px;border-radius:16px;border:1.5px solid #d1fae5;background:#f0fdf4;color:#166534;cursor:pointer;white-space:nowrap;transition:all 0.15s}
+.chat-cat-btn.active{background:#2d6a4f;color:#fff;border-color:#2d6a4f}
+.quick-questions{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px;max-height:110px;overflow-y:auto}
+.qq{font-size:11.5px;background:#f0fdf4;border:1px solid #86efac;border-radius:14px;padding:5px 11px;cursor:pointer;color:#166534;font-weight:500;transition:background 0.15s;text-align:left;line-height:1.3}
 .qq:active{background:#dcfce7}
 .chat-area{display:flex;flex-direction:column;gap:10px;padding-bottom:8px}
-.chat-bubble{max-width:85%;padding:10px 13px;border-radius:16px;font-size:13.5px;line-height:1.55}
-.bubble-user{background:linear-gradient(135deg,#2d6a4f,#40916c);color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
-.bubble-bot{background:#f3f4f6;color:#111827;align-self:flex-start;border-bottom-left-radius:4px;border:1px solid #e5e7eb}
-.bubble-label{font-size:10px;font-weight:600;color:#6b7280;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.5px}
+.chat-msg-wrap{display:flex;flex-direction:column}
+.chat-msg-wrap.user-wrap{align-items:flex-end}
+.chat-msg-wrap.bot-wrap{align-items:flex-start}
+.chat-bubble{max-width:88%;padding:10px 13px;border-radius:16px;font-size:13.5px;line-height:1.55}
+.bubble-user{background:linear-gradient(135deg,#2d6a4f,#40916c);color:#fff;border-bottom-right-radius:4px}
+.bubble-bot{background:#f3f4f6;color:#111827;border-bottom-left-radius:4px;border:1px solid #e5e7eb;white-space:pre-line}
+.bubble-label{font-size:10px;font-weight:600;color:#6b7280;margin-bottom:3px;text-transform:uppercase;letter-spacing:0.5px}
+.bubble-time{font-size:10px;color:#9ca3af;margin-top:3px}
+.related-qs{margin-top:8px;display:flex;flex-direction:column;gap:4px}
+.related-q{font-size:11.5px;color:#2d6a4f;cursor:pointer;text-decoration:underline;text-underline-offset:2px;padding:2px 0}
+.related-label{font-size:10px;color:#9ca3af;margin-bottom:2px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px}
+.typing-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#9ca3af;margin:0 1px;animation:blink 1.2s infinite}
+.typing-dot:nth-child(2){animation-delay:0.2s}
+.typing-dot:nth-child(3){animation-delay:0.4s}
+@keyframes blink{0%,80%,100%{opacity:0.2}40%{opacity:1}}
+.ig-badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;border-radius:10px;padding:2px 8px;margin-left:6px;vertical-align:middle}
+.ig-low{background:#d1fae5;color:#065f46}
+.ig-med{background:#fef9c3;color:#854d0e}
+.ig-high{background:#fee2e2;color:#991b1b}
+.chat-clear{font-size:11px;color:#9ca3af;cursor:pointer;text-align:right;margin-bottom:6px;text-decoration:underline}
+.no-match-box{background:#f9fafb;border:1px solid #e5e7eb;border-radius:12px;padding:10px 12px;font-size:12.5px;color:#6b7280}
+.no-match-box strong{color:#374151;display:block;margin-bottom:6px}
 .chat-input-wrap{display:flex;gap:8px;padding:10px 14px 14px;border-top:1px solid #f3f4f6;background:#fff;flex-shrink:0}
 .chat-input-wrap input{flex:1;border:1.5px solid #d1d5db;border-radius:22px;padding:9px 15px;font-size:14px;background:#f9fafb;color:#111;outline:none;-webkit-appearance:none}
 .chat-input-wrap input:focus{border-color:#40916c;background:#fff}
@@ -152,8 +175,246 @@ const rules=[
   {yes:true,text:'Porcion de carbohidrato: un punio cerrado maximo'},
   {yes:true,text:'Ejercicio moderado 3-4 veces por semana'}
 ];
-const quickQs=['Puedo comer arroz blanco de vez en cuando?','Que snacks puedo tomar entre horas?','El cafe con leche esta bien?','Cuanto chocolate negro puedo comer?','Como bajo la glucosa rapido despues de comer?','Puedo beber vino en la cena?','Que fruta es la mejor para mi?','Puedo comer pasta integral?'];
+
+/* ── BASE DE CONOCIMIENTO ── */
+const kb=[
+  /* FRUTAS */
+  {cat:'frutas',q:'Que fruta puedo comer?',
+   kw:['fruta','frutas','mejor fruta','que fruta','fruta puedo'],
+   a:'🟢 Perfectas (IG bajo):\nFreses, arandanos, frambuesas, kiwi, manzana verde, pera, naranja, melocoton.\n\n🟡 Con moderacion:\nMandarina, cereza, higo fresco (1-2 al dia).\n\n🔴 Evita o muy poca cantidad:\nUvas, sandia, platano maduro, dátiles, frutas en almibar o zumos comerciales.\n\nTrucos: come la fruta entera (no en zumo), con la piel cuando puedas, y acompanada de un punado de nueces para bajar el pico de glucosa.',
+   rel:['Cuanta fruta al dia puedo tomar?','El platano esta prohibido?','Que es el indice glucemico?']},
+
+  {cat:'frutas',q:'El platano esta prohibido?',
+   kw:['platano','banana','platanos'],
+   a:'No esta prohibido, pero hay que elegir bien.\n\n🟡 Platano VERDE o poco maduro: IG ~42, buena opcion en cantidades pequenas. Lo tienes en el menu del jueves.\n\n🔴 Platano MADURO (amarillo con manchas): IG ~65-72, sube bastante la glucosa. Evitalo o tomalo solo tras una comida con proteina y verdura.\n\nPorcion recomendada: medio platano verde como maximo.',
+   rel:['Cuanta fruta al dia puedo tomar?','Que fruta puedo comer?']},
+
+  {cat:'frutas',q:'Cuanta fruta al dia puedo tomar?',
+   kw:['cuanta fruta','cantidad fruta','piezas fruta','raciones fruta'],
+   a:'Para glucosa en 110, lo ideal es 2-3 piezas al dia de bajo indice glucemico.\n\n• Reparte las tomas: una en media manana y otra en merienda.\n• Nunca comas fruta sola en grandes cantidades — acompanala de nueces, yogur o queso fresco.\n• Una pieza = una manzana mediana, un kiwi, un puñado de fresas o arandanos.\n• Preferiblemente entera, con piel y sin procesar.',
+   rel:['Que fruta puedo comer?','Que snacks puedo tomar entre horas?']},
+
+  {cat:'frutas',q:'Las fresas y arandanos son buenos?',
+   kw:['fresas','arandanos','frutos rojos','frambuesas','moras','berries'],
+   a:'Son de los mejores alimentos para tu situacion:\n\n🟢 IG muy bajo (25-40), cargados de antioxidantes, vitamina C y fibra.\n• Mejoran la sensibilidad a la insulina.\n• Reducen la inflamacion.\n• Puedes tomar 1 taza generosa al dia sin problema.\n\nIdeal en el desayuno con avena o yogur natural.',
+   rel:['Cuanta fruta al dia puedo tomar?','La avena es buena?']},
+
+  /* CARBOHIDRATOS */
+  {cat:'carbos',q:'Puedo comer arroz blanco de vez en cuando?',
+   kw:['arroz blanco','arroz','puedo comer arroz'],
+   a:'Si, pero con estrategia:\n\n🟡 Arroz blanco IG ~72 — sube bastante la glucosa si se come solo.\n\nComo reducir el impacto:\n• Combina SIEMPRE con mucha verdura y proteina.\n• Porcion maxima: 3-4 cucharadas cocidas (punio cerrado).\n• Dejalo enfriar antes de comer — el almidon resistente baja el IG.\n• Come la verdura y proteina antes del arroz.\n\n🟢 Mejor opcion: arroz integral IG ~55. Lo tienes en el menu del martes.',
+   rel:['El boniato es mejor que la patata?','Que es el indice glucemico?','Como reduzco el IG de mis comidas?']},
+
+  {cat:'carbos',q:'Puedo comer pasta integral?',
+   kw:['pasta','pasta integral','espaguetis','macarrones','fideos'],
+   a:'Si, en racion controlada:\n\n🟢 Pasta integral AL DENTE IG ~45-55.\n\n• Porcion: 70-80g en seco (lo que cabe en un punio).\n• Siempre al dente — si se pasa de coccion el IG sube mucho.\n• Acompana con verdura y proteina (atun, pollo, huevo).\n• Evita salsas con azucar o muy grasas.\n• Come la ensalada o verdura primero.\n\n🔴 Pasta blanca muy cocida: IG ~70+, evitala.',
+   rel:['Como reduzco el IG de mis comidas?','El pan integral es bueno?']},
+
+  {cat:'carbos',q:'El pan integral es bueno?',
+   kw:['pan','pan integral','tostadas','rebanada de pan'],
+   a:'Depende del tipo:\n\n🟢 Pan integral 100% de centeno o masa madre: IG ~40-55. Buena opcion.\n\n🟡 Pan de molde "integral" comercial: muchos llevan harina refinada con un poco de salvado. Lee la etiqueta: el primer ingrediente debe ser "harina integral".\n\nReglas:\n• Maximo 1-2 rebanadas al dia.\n• Desayuno o comida, nunca solo — acompana con grasa (aguacate, aceite) o proteina (huevo).\n• El pan tostado tiene algo menos IG que el fresco.',
+   rel:['Que desayuno es mejor para la glucosa?','Puedo comer pasta integral?']},
+
+  {cat:'carbos',q:'La avena es buena?',
+   kw:['avena','copos de avena','porridge','avena con leche'],
+   a:'La avena es uno de los mejores carbohidratos para tu situacion:\n\n🟢 IG bajo (~55) y cargada de beta-glucano, una fibra soluble que reduce el pico de glucosa y mejora la sensibilidad a la insulina.\n\n• Porcion: 40g en seco (3-4 cucharadas).\n• Mejor copos grandes que instantaneos (los instantaneos tienen IG mayor).\n• Anade canela — reduce el pico glucemico un 10-20%.\n• Con leche entera o yogur, no con zumo de fruta.\n• Nunca avena con azucar o miel anadidos.',
+   rel:['La canela ayuda de verdad?','Que desayuno es mejor para la glucosa?']},
+
+  {cat:'carbos',q:'Que es el indice glucemico?',
+   kw:['indice glucemico','ig','glucemico','que es ig','indice glucemico que es'],
+   a:'El Indice Glucemico (IG) mide la rapidez con que un alimento sube la glucosa en sangre:\n\n🟢 IG bajo (<55): sube la glucosa lentamente. Ideal.\nEjemplos: legumbres, avena, verduras, manzana, yogur.\n\n🟡 IG medio (56-69): moderado. Controla las porciones.\nEjemplos: arroz integral, pasta, boniato, platano verde.\n\n🔴 IG alto (>70): sube la glucosa rapido. Evitar o minimizar.\nEjemplos: pan blanco, arroz blanco, zumos, azucar, cerveza.\n\nTruco: combinar alimentos de IG alto con fibra, grasa o proteina reduce mucho el impacto real (IG de la comida completa).',
+   rel:['Como reduzco el IG de mis comidas?','Que fruta puedo comer?']},
+
+  {cat:'carbos',q:'El boniato es mejor que la patata?',
+   kw:['boniato','batata','patata','papa','patatas'],
+   a:'Si, el boniato es significativamente mejor:\n\n🟢 Boniato cocido IG ~44. Tiene vitamina A, fibra y antioxidantes.\n🔴 Patata hervida IG ~78. Patata frita IG ~95+.\n\nSi quieres comer patata:\n• Cocela y dejala enfriar (almidon resistente baja el IG).\n• Porcion pequena, siempre con verdura y proteina.\n• Nunca frita ni en pure.\n\nEl boniato asado del menu del sabado es una excelente opcion.',
+   rel:['Como reduzco el IG de mis comidas?','Que es el indice glucemico?']},
+
+  {cat:'carbos',q:'Las legumbres son buenas?',
+   kw:['legumbres','lentejas','garbanzos','judias','alubias','fabes','legumbres'],
+   a:'Las legumbres son de los mejores alimentos para controlar la glucosa:\n\n🟢 IG muy bajo (20-40): lentejas ~32, garbanzos ~33, judias blancas ~24.\n\nBeneficios:\n• Proteina vegetal que sacia y estabiliza la glucosa.\n• Mucha fibra soluble — reduce pico de glucosa.\n• Reducen el riesgo de diabetes tipo 2 a largo plazo.\n\nPorcion: media taza cocida (un punio) es suficiente.\nToma 3-4 veces por semana. Estan en el menu varios dias.',
+   rel:['La avena es buena?','Que fruta puedo comer?']},
+
+  {cat:'carbos',q:'La quinoa es buena para la glucosa?',
+   kw:['quinoa','quinua'],
+   a:'Excelente opcion:\n\n🟢 IG ~53, proteina completa con todos los aminoacidos esenciales, mucha fibra y magnesio (el magnesio mejora la sensibilidad a la insulina).\n\n• Porcion: 3-4 cucharadas cocidas.\n• Sustituye al arroz blanco en cualquier receta.\n• La tienes en el menu del jueves.\n\nEs uno de los pocos cereales con proteina completa, lo que ralentiza la absorcion del azucar.',
+   rel:['El boniato es mejor que la patata?','Las legumbres son buenas?']},
+
+  /* PROTEINAS Y GRASAS */
+  {cat:'proteinas',q:'Cuantos huevos puedo comer a la semana?',
+   kw:['huevos','huevo','cuantos huevos'],
+   a:'Mas de los que probablemente crees:\n\n🟢 Hasta 7 huevos por semana son seguros para la mayoria de personas, incluso con glucosa elevada. Las guias actuales lo respaldan.\n\nBeneficios del huevo:\n• IG = 0 (no afecta a la glucosa).\n• Proteina de alta calidad que sacia 4-6 horas.\n• Colina para el higado y el cerebro.\n• La yema tiene vitaminas D, B12 y grasas saludables.\n\nMejor coccion: cocido, a la plancha o en tortilla. Evita fritos en aceite en abundancia.',
+   rel:['El aguacate es bueno?','Que snacks puedo tomar entre horas?']},
+
+  {cat:'proteinas',q:'El aguacate es bueno?',
+   kw:['aguacate','palta'],
+   a:'Uno de los mejores alimentos para tu situacion:\n\n🟢 IG ~ 15 (practicamente nulo), cargado de grasas monoinsaturadas (como el aceite de oliva).\n\nBeneficios:\n• Reduce el pico de glucosa de la comida entera.\n• Muy saciante — evita picar entre horas.\n• Potasio, folato y vitamina E.\n• Mejora la sensibilidad a la insulina.\n\nPorcion: medio aguacate al dia. Lo tienes en el desayuno del viernes con tomate.',
+   rel:['Que aceite usar?','Las nueces son buenas?']},
+
+  {cat:'proteinas',q:'Las nueces y almendras son buenas?',
+   kw:['nueces','almendras','frutos secos','pistachos','cacahuetes','avellanas'],
+   a:'Son de los mejores snacks para controlar la glucosa:\n\n🟢 IG muy bajo, cargados de grasa sana, proteina, fibra y magnesio.\n\nMejores opciones:\n• Nueces: omega-3, reducen la inflamacion.\n• Almendras: magnesio, calcio, vitamina E.\n• Pistachos: los que menos calorias tienen.\n\nPorcion diaria: 20-30g (un punado cerrado, unas 15-20 unidades).\n\nEvita: frutos secos con sal excesiva, azucarados o garrapiñados.\nCrudo o tostado sin aceite, siempre mejor.',
+   rel:['Que snacks puedo tomar entre horas?','El aguacate es bueno?']},
+
+  {cat:'proteinas',q:'Que aceite usar?',
+   kw:['aceite','aceite oliva','aceite coco','aceite girasol'],
+   a:'Para tu caso, el aceite de oliva virgen extra es la opcion ideal:\n\n🟢 Aceite de oliva virgen extra (AOVE):\n• Grasas monoinsaturadas que mejoran la sensibilidad a la insulina.\n• Reduce la inflamacion cronica (clave en prediabetes).\n• Reduce el pico de glucosa cuando acompana hidratos.\n• 1-2 cucharadas por comida.\n\n🟡 Aceite de coco: moderado, no tiene evidencia clara en diabetes.\n🔴 Aceite de girasol refinado: alto en omega-6 inflamatorio, evitalo como opcion principal.',
+   rel:['Las nueces son buenas?','El aguacate es bueno?']},
+
+  {cat:'proteinas',q:'El salmon es bueno para la glucosa?',
+   kw:['salmon','pescado azul','sardinas','caballa','atun','pescado'],
+   a:'Excelente eleccion:\n\n🟢 Pescado azul (salmon, sardinas, caballa, atun):\n• Rico en omega-3 que reduce la inflamacion y mejora la sensibilidad a la insulina.\n• Proteina de alta calidad sin IG.\n• Vitamina D (su deficiencia se asocia a mayor riesgo de diabetes).\n\nRecomendacion: 3-4 raciones de pescado a la semana, al menos 2 de pescado azul.\nPreparacion: al horno, a la plancha o en papillote. Evita rebozados.',
+   rel:['Cuantos huevos puedo comer a la semana?','Que aceite usar?']},
+
+  {cat:'proteinas',q:'Puedo comer queso?',
+   kw:['queso','quesos','queso fresco','manchego'],
+   a:'Si, con moderacion:\n\n🟢 Queso fresco o requesón: bajo en grasa y calorias, IG bajo. Ideal para meriendas.\n🟢 Queso curado (manchego, parmesano): en pequenas cantidades, sin IG significativo.\n🟡 Quesos procesados o con aditivos: evitalos.\n\nEl queso es una buena fuente de proteina y calcio que estabiliza la glucosa.\nPorcion: 30-40g (como una cajita de cerillas).\n\nLo tienes en el menu de martes (merienda) y viernes.',
+   rel:['Cuantos huevos puedo comer a la semana?','Que snacks puedo tomar entre horas?']},
+
+  /* BEBIDAS */
+  {cat:'bebidas',q:'El cafe con leche esta bien?',
+   kw:['cafe','cafe con leche','cafe solo','cafe descafeinado','cafeina'],
+   a:'Si, es una muy buena opcion:\n\n🟢 Cafe con leche entera sin azucar:\n• El cafe solo puede subir ligeramente la glucosa en algunas personas (la cafeina activa el cortisol), pero con leche el efecto se amortigua mucho.\n• La grasa de la leche entera ralentiza la absorcion.\n• El cafe tiene antioxidantes que mejoran la sensibilidad a la insulina a largo plazo.\n\nCantidad: 2-3 cafes al dia son seguros.\nNunca con azucar, miel ni edulcorantes en polvo.\nDescafeinado tiene los mismos beneficios sin la cafeina.',
+   rel:['Cuanta agua debo beber?','Las infusiones ayudan?']},
+
+  {cat:'bebidas',q:'Puedo beber vino en la cena?',
+   kw:['vino','alcohol','cerveza','copa de vino','beber alcohol','vino tinto'],
+   a:'Mejor evitarlo, pero si lo tomas, hazlo con estrategia:\n\n🔴 El alcohol interfiere directamente con el control de la glucosa:\n• Bloquea la produccion de glucosa en el higado.\n• Puede causar hipoglucemia varias horas despues.\n• El vino dulce y la cerveza tienen azucares que suben la glucosa.\n\nSi lo tomas ocasionalmente:\n🟡 1 copa de vino tinto seco durante la comida (no en ayunas).\n• Siempre con comida.\n• Maximo 1 vez por semana.\n• Nada de combinados, sidra dulce ni licores.',
+   rel:['Cuanta agua debo beber?','Las infusiones ayudan?']},
+
+  {cat:'bebidas',q:'Cuanta agua debo beber?',
+   kw:['agua','cuanta agua','hidratacion','beber agua'],
+   a:'El agua es tu mejor aliada:\n\n🟢 Objetivo: 1,5 a 2 litros al dia.\n\n• El agua ayuda a los rinones a eliminar el exceso de glucosa en orina.\n• Mantenerse hidratado mejora el rendimiento del metabolismo.\n• Si tienes sed intensa o mucha orina, puede ser señal de glucosa alta — consulta a tu medico.\n\nTrucos para beber mas:\n• Una botella de 500ml en el escritorio — 4 al dia.\n• Empieza el dia con un vaso en ayunas.\n• Infusiones cuentan como agua.',
+   rel:['Las infusiones ayudan?','El cafe con leche esta bien?']},
+
+  {cat:'bebidas',q:'Las infusiones ayudan a bajar la glucosa?',
+   kw:['infusion','te verde','te','manzanilla','canela infusion','jengibre','hierbas'],
+   a:'Algunas tienen evidencia real:\n\n🟢 Te verde: los polifenoles (EGCG) reducen la absorcion de glucosa en el intestino. Toma 2-3 tazas al dia sin azucar.\n\n🟢 Canela en infusion: reduce el IG de la comida. Una cucharadita en agua caliente o en la avena.\n\n🟢 Te de jengibre: antiinflamatorio, mejora la digestion.\n\n🟡 Manzanilla, poleo, tila: relajantes, no tienen efecto directo sobre la glucosa.\n\nSiempre sin azucar. Evita infusiones comerciales con azucares anadidos.',
+   rel:['La canela ayuda de verdad?','Cuanta agua debo beber?']},
+
+  {cat:'bebidas',q:'Los refrescos light estan permitidos?',
+   kw:['refresco','light','zero','dietetico','coca cola light','edulcorante refresco'],
+   a:'Mejor evitarlos aunque sea "zero calorías":\n\n⚠️ Los refrescos light no suben la glucosa directamente, pero:\n• Los edulcorantes artificiales (aspartamo, acesulfamo) alteran la microbiota intestinal y pueden empeorar la sensibilidad a la insulina a largo plazo.\n• Mantienen el habito de lo dulce, dificultando el cambio de habitos.\n• Algunos estudios asocian consumo regular con mayor riesgo de diabetes.\n\nMejor alternativa: agua con gas y una rodaja de limon, infusion fria, te verde sin azucar.',
+   rel:['Cuanta agua debo beber?','Las infusiones ayudan?']},
+
+  /* DULCES Y SNACKS */
+  {cat:'snacks',q:'Cuanto chocolate negro puedo comer?',
+   kw:['chocolate','chocolate negro','cacao'],
+   a:'El chocolate negro de calidad es un aliado:\n\n🟢 2-3 onzas (20-30g) de chocolate negro +85% cacao al dia.\n\nPor que funciona:\n• IG bajo (~23).\n• Rico en magnesio — mejora la sensibilidad a la insulina.\n• Flavonoides que reducen la inflamacion.\n• Reduce el pico de glucosa tras las comidas.\n\nImportante:\n• Minimo 85% cacao — cuanto mas, mejor.\n• Sin azucar anadido ni ingredientes de relleno.\n• Evita el chocolate con leche o blanco (azucar alto).\n• Tomalo despues de comer, no en ayunas.',
+   rel:['Que snacks puedo tomar entre horas?','Las nueces son buenas?']},
+
+  {cat:'snacks',q:'Que snacks puedo tomar entre horas?',
+   kw:['snack','snacks','picar','picoteo','entre horas','merienda','media manana'],
+   a:'Los mejores snacks para tu glucosa:\n\n🟢 Los mejores:\n• Punado de nueces o almendras (15-20 unidades).\n• Yogur natural sin azucar (con canela o semillas).\n• Pepino, zanahoria o apio crudos.\n• 1 huevo cocido.\n• Queso fresco (30g).\n• 2-3 onzas de chocolate negro +85%.\n• 1 manzana o pera con 5 nueces.\n\n🔴 Evita:\n• Barritas energeticas comerciales (azucar oculto).\n• Galletas aunque sean integrales o "sin azucar".\n• Fruta sola en grandes cantidades.\n• Patatas fritas, aperitivos de bolsa.',
+   rel:['Cuanto chocolate negro puedo comer?','Las nueces son buenas?','Cuanta fruta al dia?']},
+
+  {cat:'snacks',q:'Puedo comer miel o azucar moreno?',
+   kw:['miel','azucar moreno','panela','azucar','edulcorante natural'],
+   a:'Son mejores que el azucar blanco, pero siguen siendo azucar:\n\n🔴 Miel IG ~61-83, azucar moreno IG ~65 — no hay diferencia significativa para tu glucosa.\n\nLa miel tiene algo mas de vitaminas y antioxidantes, pero el impacto en glucosa es practicamente igual.\n\n🟡 Alternativas mejores:\n• Eritritol: no afecta a la glucosa, sabor similar al azucar.\n• Stevia natural (hojas o extracto puro): 0 calorias, 0 IG.\n• Canela: para dar sabor dulce sin azucar.\n\nLo ideal es acostumbrar el paladar a menos dulce en general.',
+   rel:['La canela ayuda de verdad?','Los refrescos light estan permitidos?']},
+
+  {cat:'snacks',q:'Puedo comer galletas integrales?',
+   kw:['galletas','galletas integrales','maria','digestive','crackers'],
+   a:'La mayoria de las galletas "integrales" son un engano:\n\n⚠️ Aunque pongan "integral" o "sin azucar", muchas galletas comerciales tienen:\n• Azucares ocultos (jarabe de glucosa, fructosa).\n• Grasas de palma.\n• Harina refinada con un poco de salvado.\n\n🔴 Evita: galletas Maria, Digestive, barritas de cereales comerciales.\n\n🟢 Si quieres algo crujiente:\n• Tortitas de arroz integral (pocas).\n• Crackers de centeno 100% (como Wasa, Ryvita).\n• Palitos de zanahoria o pepino con hummus.',
+   rel:['Que snacks puedo tomar entre horas?','El pan integral es bueno?']},
+
+  /* EJERCICIO Y HABITOS */
+  {cat:'ejercicio',q:'Como bajo la glucosa rapido despues de comer?',
+   kw:['bajar glucosa','glucosa alta','despues de comer','pico glucosa','subida glucosa','bajar rapido'],
+   a:'El metodo mas efectivo es el movimiento:\n\n🟢 Caminar 10-15 minutos despues de cada comida:\n• Los musculos consumen glucosa directamente sin necesitar insulina.\n• Reduce el pico postprandial hasta un 30-40%.\n• No hace falta ir rapido — un paseo tranquilo funciona.\n\nOtras estrategias:\n• Come verdura y proteina antes del carbohidrato.\n• Una cucharada de vinagre de manzana en agua antes de comer reduce el IG de la comida.\n• La canela en la comida reduce el pico.\n• No comas en grandes cantidades de golpe — fracciona.',
+   rel:['Cuanto ejercicio necesito?','La canela ayuda de verdad?']},
+
+  {cat:'ejercicio',q:'Cuanto ejercicio necesito?',
+   kw:['ejercicio','deporte','actividad fisica','cuanto ejercicio','ejercicio semana'],
+   a:'Con tu glucosa en 110, el ejercicio es una de las herramientas mas potentes:\n\n🟢 Minimo recomendado:\n• 150 minutos/semana de cardio moderado (caminar rapido, bicicleta, nadar).\n• 2-3 sesiones de fuerza (pesas, bandas, sentadillas) — el musculo es el mayor consumidor de glucosa.\n\nEfectos:\n• Cada sesion de fuerza mejora la sensibilidad a la insulina 24-48 horas.\n• El ejercicio regular puede bajar la glucosa en ayunas 5-15 puntos en 3 meses.\n\nEmpezar por: caminar 30 minutos al dia. Es suficiente para empezar.',
+   rel:['Como bajo la glucosa rapido?','Cuando es mejor hacer ejercicio?']},
+
+  {cat:'ejercicio',q:'Cuando es mejor hacer ejercicio?',
+   kw:['cuando ejercicio','hora ejercicio','manana tarde noche ejercicio'],
+   a:'Depende de tu objetivo:\n\n🟢 Para bajar el pico de glucosa postprandial:\nCamina 15-30 minutos DESPUES de comer (especialmente despues de la comida del mediodia).\n\n🟢 Para mejorar la sensibilidad a la insulina general:\nEjercicio de fuerza por la mañana en ayunas o a media tarde.\n\n🟡 Por la noche (despues de cenar):\nUn paseo suave esta bien, pero el ejercicio intenso de noche puede dificultar el sueño y el sueño malo sube la glucosa.\n\nLo mas importante es hacerlo con regularidad, independientemente de la hora.',
+   rel:['Cuanto ejercicio necesito?','El estres sube la glucosa?']},
+
+  {cat:'ejercicio',q:'El estres sube la glucosa?',
+   kw:['estres','ansiedad','cortisol','nervios','estres glucosa'],
+   a:'Si, y es un factor que se suele ignorar:\n\n⚠️ El estres libera cortisol y adrenalina, que ordenan al higado liberar glucosa de emergencia. Esto puede subir la glucosa 10-30 puntos aunque no hayas comido.\n\nEstrategias para controlar el estres:\n• Respiracion profunda 5 minutos al dia (tecnica 4-7-8).\n• Caminar al aire libre.\n• Sueno de calidad (dormir mal sube la glucosa).\n• Reducir cafeina en exceso.\n• Mindfulness o meditacion — hay evidencia de reduccion de HbA1c.\n\nEl sueno es critico: menos de 6 horas eleva la glucosa al dia siguiente.',
+   rel:['Cuanto ejercicio necesito?','Como bajo la glucosa rapido?']},
+
+  {cat:'ejercicio',q:'El ayuno intermitente es bueno para la glucosa?',
+   kw:['ayuno','ayuno intermitente','16 8','fasting','saltarme comidas'],
+   a:'Puede ayudar, pero con precaucion en prediabetes:\n\n🟡 Ayuno intermitente 16:8 (comer en ventana de 8 horas):\n• Muchos estudios muestran mejora de la sensibilidad a la insulina.\n• Puede bajar la glucosa en ayunas 5-10 puntos en semanas.\n\nPrecauciones:\n• No hagas ayunos largos sin supervision medica si tomas medicacion.\n• En las horas de comer, sigue la dieta de bajo IG — el ayuno no neutraliza una comida mala.\n• Empieza poco a poco: primero cierra la cocina a las 20h, luego retrasa el desayuno.\n\nConsulta a tu medico antes de empezar un protocolo de ayuno.',
+   rel:['Como bajo la glucosa rapido?','Cuanto ejercicio necesito?']},
+
+  /* COCINA */
+  {cat:'cocina',q:'Como reduzco el IG de mis comidas?',
+   kw:['reducir ig','bajar ig','cocinar bajo ig','trucos cocina','preparar comida glucosa'],
+   a:'Trucos de cocina que realmente funcionan:\n\n1. Orden de los alimentos: verdura → proteina → carbohidrato. Esto solo puede reducir el pico hasta un 40%.\n\n2. Al dente: pasta y arroz al dente tienen IG mas bajo que muy cocidos.\n\n3. Enfriar y recalentar: el arroz, la patata o la pasta frios tienen mas almidon resistente (IG menor). Puedes recalentarlos sin problema.\n\n4. Vinagre antes de comer: 1 cucharada de vinagre de manzana en agua reduce el IG de la comida.\n\n5. Canela y especias: reducen el pico de glucosa.\n\n6. Grasa + carbohidrato: aceite de oliva en el arroz integral reduce su IG.',
+   rel:['La canela ayuda de verdad?','Como bajo la glucosa rapido?','Que es el indice glucemico?']},
+
+  {cat:'cocina',q:'La canela ayuda de verdad a bajar la glucosa?',
+   kw:['canela','canela glucosa','canela ayuda'],
+   a:'Si, hay evidencia real:\n\n🟢 La canela (especialmente la de Ceylan) contiene compuestos que:\n• Imitan la accion de la insulina a nivel celular.\n• Reducen el pico de glucosa postprandial hasta un 10-29% (meta-analisis).\n• Reducen la glucosa en ayunas con uso regular.\n\nComo usarla:\n• 1/2 - 1 cucharadita al dia es suficiente.\n• En la avena del desayuno, el yogur, o en infusion.\n• La canela de Ceylan es mas suave y segura para uso diario que la canela cassia (la mas comun en supermercados).\n\nNo es un medicamento, pero como complemento a la dieta funciona.',
+   rel:['La avena es buena?','Como reduzco el IG de mis comidas?']},
+
+  {cat:'cocina',q:'Que desayuno es mejor para controlar la glucosa?',
+   kw:['desayuno','que desayunar','desayuno glucosa','mejor desayuno'],
+   a:'El desayuno marca el metabolismo del dia entero:\n\n🟢 Desayunos ideales:\n1. Avena con leche + canela + nueces + arandanos (el mejor).\n2. 2 huevos + aguacate + tomate (sin pan o pan integral).\n3. Yogur natural + avena + frutos rojos + semillas chia.\n\n🔴 Evita:\n• Cereales de caja aunque pongan "integral".\n• Zumos de fruta (aunque sean naturales).\n• Tostadas con mermelada o miel.\n• Bolleria, croissants, donuts.\n• Batidos comerciales "saludables".\n\nEl secreto: proteina + grasa + fibra al desayuno = glucosa estable toda la manana.',
+   rel:['La avena es buena?','El pan integral es bueno?','Cuantos huevos puedo comer?']},
+
+  {cat:'cocina',q:'Como preparo el arroz para que suba menos la glucosa?',
+   kw:['preparar arroz','cocinar arroz','arroz menos glucosa','almidon resistente'],
+   a:'Truco del almidon resistente:\n\n1. Cuece el arroz integral normalmente.\n2. Dejalo enfriar en la nevera al menos 12 horas.\n3. Calentalo de nuevo cuando lo vayas a comer.\n\nEste proceso convierte parte del almidon en almidon resistente, que no se absorbe igual y baja el IG un 10-15%.\n\nOtros trucos:\n• Anade aceite de oliva al agua de coccion.\n• Come siempre con abundante verdura y proteina.\n• Porcion maxima: 4 cucharadas cocidas.\n• Mejor arroz integral que blanco en todos los casos.',
+   rel:['Puedo comer arroz blanco?','Como reduzco el IG de mis comidas?']},
+
+  /* SALUD Y MEDICO */
+  {cat:'salud',q:'Puedo revertir la prediabetes?',
+   kw:['revertir','reversion','curar','prediabetes','volver normal','glucosa normal'],
+   a:'Si, la evidencia es muy clara:\n\n🟢 Con dieta y ejercicio, muchas personas revierten la prediabetes completamente.\n\nEstudios clave:\n• El Diabetes Prevention Program (DPP) demostro que la dieta + ejercicio reduce el riesgo de diabetes en un 58%, mas que la metformina (31%).\n• Perder un 5-7% del peso corporal (si hay sobrepeso) tiene un efecto enorme.\n\nTu glucosa de 110 esta en el limite superior de lo normal (70-99 normal, 100-125 prediabetes). Con 3-6 meses de dieta estricta y ejercicio regular, es muy probable volver a valores normales.\n\nRevisa con tu medico cada 3 meses.',
+   rel:['Con que glucosa debo ir al medico urgente?','Cuando debo repetir el analisis?']},
+
+  {cat:'salud',q:'Con que glucosa debo ir al medico urgente?',
+   kw:['medico urgencias','glucosa alta urgente','cuando ir medico','glucosa peligrosa','valores peligrosos'],
+   a:'Señales de alarma que requieren atencion medica:\n\n🚨 Ve a urgencias si:\n• Glucosa >300 mg/dL con sintomas (vomitos, confusion, dificultad respiratoria).\n• Hipoglucemia severa (<50 mg/dL) con perdida de consciencia.\n\n⚠️ Llama a tu medico pronto si:\n• Glucosa en ayunas repetidamente >150 mg/dL.\n• Sed extrema, muchas ganas de orinar, cansancio inusual.\n• Perdida de peso rapida sin explicacion.\n• Vision borrosa o fourmillements en manos/pies.\n\nTu situacion (110 en ayunas) no es urgente pero requiere seguimiento regular.',
+   rel:['Cuando debo repetir el analisis?','Puedo revertir la prediabetes?']},
+
+  {cat:'salud',q:'Cuando debo repetir el analisis de glucosa?',
+   kw:['analisis','repetir analisis','control glucosa','revision medico','hemoglobina glicosilada','hba1c'],
+   a:'Calendario de seguimiento recomendado:\n\n📅 Con glucosa en 110 mg/dL:\n• Glucosa en ayunas: cada 3 meses los primeros 6 meses, luego cada 6 meses si mejora.\n• HbA1c (hemoglobina glicosilada): cada 6 meses. Refleja la glucosa media de los ultimos 3 meses — es el marcador mas fiable.\n\nQue buscar:\n• Glucosa en ayunas objetivo: <100 mg/dL.\n• HbA1c objetivo: <5,7% (normal), 5,7-6,4% (prediabetes), >6,5% (diabetes).\n\nPide tambien: colesterol, trigliceridos, vitamina D y B12 en la analitica anual.',
+   rel:['Puedo revertir la prediabetes?','Con que glucosa debo ir al medico urgente?']},
+
+  {cat:'salud',q:'La vitamina D ayuda a controlar la glucosa?',
+   kw:['vitamina d','vitamina','suplementos','magnesio','berberina'],
+   a:'Si, la vitamina D tiene evidencia solida:\n\n🟢 La deficiencia de vitamina D (muy comun en Espana en invierno) se asocia con mayor resistencia a la insulina y mayor riesgo de diabetes tipo 2.\n\nOtros suplementos con evidencia:\n• Magnesio: el 80% de los diabeticos tiene deficiencia. El magnesio es cofactor de la insulina. 300-400mg/dia.\n• Berberina: evidencia similar a la metformina en prediabetes. Consulta con tu medico.\n• Omega-3: reduce la inflamacion.\n\nHaz que tu medico te mida la vitamina D en la analitica. Si esta baja, suplementa.',
+   rel:['Cuando debo repetir el analisis?','El salmon es bueno para la glucosa?']},
+
+  {cat:'salud',q:'El sueno afecta a la glucosa?',
+   kw:['sueno','dormir','insomnio','horas sueno','descanso'],
+   a:'El sueno es tan importante como la dieta:\n\n⚠️ Dormir menos de 6-7 horas:\n• Aumenta el cortisol (sube la glucosa).\n• Reduce la sensibilidad a la insulina hasta un 30%.\n• Aumenta el apetito de azucar y carbohidratos al dia siguiente.\n• Sube la glucosa en ayunas del dia siguiente 10-20 puntos.\n\nObjetivo: 7-8 horas de sueno de calidad.\n\nTrucos para mejorar el sueno:\n• Cena ligera al menos 2 horas antes de dormir.\n• Oscuridad total en la habitacion.\n• Sin pantallas 30 minutos antes.\n• Temperatura fresca (18-20°C).\n• Horario regular de sueno.',
+   rel:['El estres sube la glucosa?','Cuanto ejercicio necesito?']}
+];
+
+/* ── CATEGORIAS ── */
+const cats=[
+  {id:'frutas',   label:'🍎 Frutas'},
+  {id:'carbos',   label:'🌾 Carbos'},
+  {id:'proteinas',label:'🥩 Proteinas'},
+  {id:'bebidas',  label:'🥤 Bebidas'},
+  {id:'snacks',   label:'🍫 Snacks'},
+  {id:'ejercicio',label:'🏃 Ejercicio'},
+  {id:'cocina',   label:'🍳 Cocina'},
+  {id:'salud',    label:'🩺 Salud'}
+];
+
 let currentDay=0;
+let activeCat='frutas';
+let chatHistory=[];
+
+function loadHistory(){
+  try{const h=localStorage.getItem('glucosa_chat');if(h)chatHistory=JSON.parse(h);}catch(e){}
+}
+function saveHistory(){
+  try{localStorage.setItem('glucosa_chat',JSON.stringify(chatHistory.slice(-40)));}catch(e){}
+}
+
 function buildDayTabs(){
   document.getElementById('dayTabs').innerHTML=days.map((d,i)=>
     `<div class="day-tab${i===0?' active':''}" onclick="selectDay(${i})">${d.short}</div>`).join('');
@@ -178,41 +439,167 @@ function renderNormas(){
   document.getElementById('mainContent').innerHTML=
     `<div class="section-title">Normas clave</div><div class="rules-card">${rules.map(r=>`<div class="rule-item"><div class="rule-dot ${r.yes?'rd-yes':'rd-no'}">${r.yes?'✓':'✕'}</div><span>${r.text}</span></div>`).join('')}</div><div class="tip-box" style="margin-top:12px">Con dieta y ejercicio muchas personas vuelven a valores normales en 3-6 meses. Revisa con tu medico cada 3 meses.</div>`;
 }
+
+/* ── CHAT ── */
+function normalize(s){
+  return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9 ]/g,' ');
+}
+
+function findBestMatch(input){
+  const n=normalize(input);
+  let best=null,bestScore=0;
+  for(const e of kb){
+    let score=0;
+    for(const kw of e.kw){if(n.includes(normalize(kw)))score+=kw.split(' ').length;}
+    if(score>bestScore){bestScore=score;best=e;}
+  }
+  return bestScore>0?best:null;
+}
+
+function getQuickQsByCat(catId){
+  return kb.filter(e=>e.cat===catId);
+}
+
+function nowTime(){
+  return new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
+}
+
+function appendMsg(area,html){
+  const d=document.createElement('div');
+  d.innerHTML=html;
+  area.appendChild(d.firstElementChild);
+  area.scrollTop=area.scrollHeight;
+}
+
 function renderChat(){
+  loadHistory();
+  const catTabs=cats.map(c=>`<button class="chat-cat-btn${c.id===activeCat?' active':''}" onclick="setCat('${c.id}')">${c.label}</button>`).join('');
+  const qs=getQuickQsByCat(activeCat);
+  const qBtns=qs.map(e=>`<button class="qq" onclick="askEntry(${kb.indexOf(e)})">${e.q}</button>`).join('');
+
   document.getElementById('mainContent').innerHTML=
     `<div class="specialist-badge"><div class="badge-avatar">🩺</div><div><div class="badge-name">Especialista en Nutricion</div><div class="badge-role">Experto en glucosa y dieta antiinflamatoria</div></div></div>
-    <div class="section-title">Preguntas frecuentes</div>
-    <div class="quick-questions">${quickQs.map(q=>`<button class="qq" onclick="addQ(${JSON.stringify(q)})">${q}</button>`).join('')}</div>
-    <div class="chat-area" id="chatArea">
-      <div style="align-self:flex-start"><div class="bubble-label">Especialista</div><div class="chat-bubble bubble-bot">Hola! Soy tu especialista en nutricion para controlar la glucosa. Preguntame lo que quieras sobre tu dieta, alimentos o habitos saludables. 💚</div></div>
-    </div>`;
-  document.getElementById('chatInput').onkeydown=e=>{if(e.key==='Enter')sendQ()};
+    <div class="chat-cats" id="chatCats">${catTabs}</div>
+    <div class="quick-questions" id="quickQs">${qBtns}</div>
+    <div class="chat-clear" onclick="clearChat()">Borrar conversacion</div>
+    <div class="chat-area" id="chatArea"></div>`;
+
+  const area=document.getElementById('chatArea');
+
+  if(chatHistory.length===0){
+    appendMsg(area,`<div class="chat-msg-wrap bot-wrap">
+      <div class="bubble-label">Especialista</div>
+      <div class="chat-bubble bubble-bot">Hola! Soy tu especialista en nutricion para controlar la glucosa. Elige una categoria arriba o escribe tu pregunta. 💚</div>
+      <div class="bubble-time">${nowTime()}</div>
+    </div>`);
+  } else {
+    chatHistory.forEach(msg=>{
+      if(msg.role==='user'){
+        appendMsg(area,`<div class="chat-msg-wrap user-wrap">
+          <div class="chat-bubble bubble-user">${escHtml(msg.text)}</div>
+          <div class="bubble-time">${msg.time}</div>
+        </div>`);
+      } else {
+        appendMsg(area,buildBotBubble(msg.text,msg.related||[],msg.time));
+      }
+    });
+  }
+
+  document.getElementById('chatInput').onkeydown=e=>{if(e.key==='Enter')sendQ();};
 }
-function addQ(q){
+
+function setCat(catId){
+  activeCat=catId;
+  document.querySelectorAll('.chat-cat-btn').forEach(b=>{
+    b.classList.toggle('active',b.textContent===cats.find(c=>c.id===catId).label);
+  });
+  const qs=getQuickQsByCat(catId);
+  document.getElementById('quickQs').innerHTML=qs.map(e=>`<button class="qq" onclick="askEntry(${kb.indexOf(e)})">${e.q}</button>`).join('');
+}
+
+function escHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+function buildBotBubble(text,related,time){
+  const relHtml=related.length>0?`<div class="related-qs"><div class="related-label">Relacionado</div>${related.map(r=>`<div class="related-q" onclick="askText(${JSON.stringify(r)})">${r}</div>`).join('')}</div>`:'';
+  return `<div class="chat-msg-wrap bot-wrap">
+    <div class="bubble-label">Especialista</div>
+    <div class="chat-bubble bubble-bot">${escHtml(text)}</div>
+    ${relHtml}
+    <div class="bubble-time">${time}</div>
+  </div>`;
+}
+
+function showTyping(area){
+  const id='typing_'+Date.now();
+  appendMsg(area,`<div class="chat-msg-wrap bot-wrap" id="${id}">
+    <div class="bubble-label">Especialista</div>
+    <div class="chat-bubble bubble-bot"><span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span></div>
+  </div>`);
+  return id;
+}
+
+function askEntry(idx){
+  const entry=kb[idx];
+  if(!entry)return;
+  deliverAnswer(entry.q,entry.a,entry.rel||[]);
+}
+
+function askText(q){
+  deliverAnswer(q,null,null);
+}
+
+function deliverAnswer(question,answerText,related){
   const area=document.getElementById('chatArea');
   if(!area)return;
-  area.innerHTML+=`<div style="align-self:flex-end"><div class="chat-bubble bubble-user">${q}</div></div>`;
-  area.scrollTop=area.scrollHeight;
-  area.innerHTML+=`<div style="align-self:flex-start"><div class="bubble-label">Especialista</div><div class="chat-bubble bubble-bot" id="th">...</div></div>`;
-  const answers={
-    'Puedo comer arroz blanco de vez en cuando?':'Si, ocasionalmente y en racion pequena. Preferiblemente mezclado con verdura o proteina para reducir el pico de glucosa. Mejor el integral siempre que puedas.',
-    'Que snacks puedo tomar entre horas?':'Nueces o almendras (punado), yogur natural sin azucar, pepino o zanahoria, queso fresco, o una fruta de bajo IG como manzana o pera.',
-    'El cafe con leche esta bien?':'Si, perfecto. Cafe con leche entera sin azucar es una buena opcion. La grasa de la leche ralentiza la absorcion de la cafeina.',
-    'Cuanto chocolate negro puedo comer?':'2-3 onzas de chocolate negro +85% de cacao al dia es perfecto. Tiene poco azucar, mucho magnesio y mejora la sensibilidad a la insulina.',
-    'Como bajo la glucosa rapido despues de comer?':'Camina 10-15 minutos. Es lo mas efectivo. Los musculos consumen glucosa directamente sin necesitar insulina.',
-    'Puedo beber vino en la cena?':'Mejor evitarlo. El alcohol interfiere con el control de glucosa. Si lo tomas ocasionalmente, una copa de vino tinto seco con comida es lo menos malo.',
-    'Que fruta es la mejor para mi?':'Fresas, arandanos, frambuesas, kiwi, manzana y pera. Todas tienen bajo indice glucemico y mucha fibra. Evita uvas, sandía y platano maduro.',
-    'Puedo comer pasta integral?':'Si, en racion controlada (80g en seco), al dente y acompanada de verdura y proteina. La pasta integral bien cocinada tiene IG moderado.'
-  };
-  setTimeout(()=>{const t=document.getElementById('th');if(t)t.textContent=answers[q]||'Buena pregunta. Consulta con tu medico o nutricionista para una respuesta personalizada a tu caso.';area.scrollTop=area.scrollHeight;},900);
+
+  const t=nowTime();
+  appendMsg(area,`<div class="chat-msg-wrap user-wrap">
+    <div class="chat-bubble bubble-user">${escHtml(question)}</div>
+    <div class="bubble-time">${t}</div>
+  </div>`);
+  chatHistory.push({role:'user',text:question,time:t});
+
+  const typId=showTyping(area);
+
+  setTimeout(()=>{
+    const el=document.getElementById(typId);
+    if(!el)return;
+
+    let ans=answerText;
+    let rel=related||[];
+
+    if(!ans){
+      const match=findBestMatch(question);
+      if(match){ans=match.a;rel=match.rel||[];}
+      else{
+        ans='No tengo una respuesta especifica para eso. Te recomiendo consultar con tu medico o nutricionista para obtener una respuesta personalizada a tu caso.\n\nMientras tanto, recuerda las reglas basicas: verdura primero, proteina luego, carbohidratos en porcion pequena, y camina despues de comer.';
+        rel=['Como reduzco el IG de mis comidas?','Cuanto ejercicio necesito?','Puedo revertir la prediabetes?'];
+      }
+    }
+
+    const bt=nowTime();
+    el.outerHTML=buildBotBubble(ans,rel,bt);
+    chatHistory.push({role:'bot',text:ans,related:rel,time:bt});
+    saveHistory();
+    const a=document.getElementById('chatArea');
+    if(a)a.scrollTop=a.scrollHeight;
+  },700+Math.random()*400);
 }
+
 function sendQ(){
   const inp=document.getElementById('chatInput');
   const q=inp.value.trim();
   if(!q)return;
   inp.value='';
-  addQ(q);
+  deliverAnswer(q,null,null);
 }
+
+function clearChat(){
+  chatHistory=[];
+  try{localStorage.removeItem('glucosa_chat');}catch(e){}
+  renderChat();
+}
+
 function switchTab(tab){
   ['dias','compra','normas','chat'].forEach(t=>{document.getElementById('nb-'+t).classList.toggle('active',t===tab)});
   document.getElementById('dayTabs').style.display=tab==='dias'?'flex':'none';
