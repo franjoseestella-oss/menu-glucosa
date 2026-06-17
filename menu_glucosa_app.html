@@ -4,14 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Menu Semanal - Glucosa 110</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;background:#f0f4f0;display:flex;justify-content:center;align-items:flex-start;min-height:100vh;padding:16px 0}
 .app{width:100%;max-width:420px;background:#fff;border-radius:24px;overflow:hidden;display:flex;flex-direction:column;min-height:100vh;max-height:100vh;box-shadow:0 4px 24px rgba(0,0,0,0.10)}
 @media(max-width:440px){body{padding:0}.app{border-radius:0;min-height:100dvh;max-height:100dvh}}
-.topbar{background:linear-gradient(135deg,#2d6a4f,#40916c);padding:18px 20px 14px;color:#fff;flex-shrink:0}
+.topbar{background:linear-gradient(135deg,#2d6a4f,#40916c);padding:14px 20px 12px;color:#fff;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.topbar-text{flex:1;min-width:0}
 .topbar-title{font-size:19px;font-weight:700;letter-spacing:-0.3px}
 .topbar-sub{font-size:12px;opacity:0.8;margin-top:3px}
+.pdf-btn{flex-shrink:0;display:flex;align-items:center;gap:5px;background:rgba(255,255,255,0.18);border:1.5px solid rgba(255,255,255,0.35);border-radius:20px;padding:7px 13px;color:#fff;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;transition:background 0.15s;letter-spacing:0.3px}
+.pdf-btn:active{background:rgba(255,255,255,0.28)}
+.pdf-btn .pdf-icon{font-size:15px}
 .day-tabs{display:flex;overflow-x:auto;background:#1b4332;padding:0 8px;gap:2px;scrollbar-width:none;flex-shrink:0}
 .day-tabs::-webkit-scrollbar{display:none}
 .day-tab{flex-shrink:0;padding:9px 13px;font-size:12px;font-weight:600;color:rgba(255,255,255,0.55);cursor:pointer;border-bottom:2.5px solid transparent;white-space:nowrap;transition:color 0.15s}
@@ -83,8 +88,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
 <body>
 <div class="app">
   <div class="topbar">
-    <div class="topbar-title">Menu Semanal</div>
-    <div class="topbar-sub">Glucosa 110 mg/dL — bajo indice glucemico</div>
+    <div class="topbar-text">
+      <div class="topbar-title">Menu Semanal</div>
+      <div class="topbar-sub">Glucosa 110 mg/dL — bajo indice glucemico</div>
+    </div>
+    <button class="pdf-btn" onclick="generatePDF()" aria-label="Descargar PDF">
+      <span class="pdf-icon">📄</span> PDF
+    </button>
   </div>
   <div class="day-tabs" id="dayTabs" style="display:flex"></div>
   <div class="content" id="mainContent"></div>
@@ -611,6 +621,228 @@ function switchTab(tab){
 }
 buildDayTabs();
 renderDias();
+
+/* ── GENERADOR DE PDF ── */
+function generatePDF(){
+  const btn=document.querySelector('.pdf-btn');
+  const orig=btn.innerHTML;
+  btn.innerHTML='<span class="pdf-icon">⏳</span> Generando...';
+  btn.disabled=true;
+
+  setTimeout(()=>{
+    try{
+      const {jsPDF}=window.jspdf;
+      const doc=new jsPDF({orientation:'portrait',unit:'mm',format:'a4'});
+      const W=210,M=14;
+      let y=0;
+
+      const GREEN=[45,106,79],LIGHT=[232,245,233],DARK=[27,67,50],GRAY=[107,114,128],WHITE=[255,255,255];
+
+      /* ── helpers ── */
+      function pageCheck(needed){
+        if(y+needed>285){doc.addPage();y=14;}
+      }
+      function hdr(txt,bg,fg,sz){
+        doc.setFillColor(...bg);
+        doc.rect(M,y,W-M*2,sz+4,'F');
+        doc.setTextColor(...fg);
+        doc.setFontSize(sz);
+        doc.setFont('helvetica','bold');
+        doc.text(txt,M+3,y+sz-1);
+        y+=sz+6;
+      }
+      function label(txt,color,sz){
+        doc.setTextColor(...color);
+        doc.setFontSize(sz);
+        doc.setFont('helvetica','bold');
+        doc.text(txt,M,y);
+        y+=sz*0.5+1;
+      }
+      function body(txt,indent,sz,maxW){
+        doc.setTextColor(55,65,81);
+        doc.setFontSize(sz);
+        doc.setFont('helvetica','normal');
+        const lines=doc.splitTextToSize(txt,maxW||W-M*2-indent);
+        lines.forEach(l=>{
+          pageCheck(sz*0.5+1);
+          doc.text(l,M+indent,y);
+          y+=sz*0.45+1;
+        });
+        y+=1;
+      }
+      function sep(){
+        doc.setDrawColor(220,220,220);
+        doc.line(M,y,W-M,y);
+        y+=3;
+      }
+      function bullet(txt,ok){
+        const mark=ok?'✓':'✕';
+        const col=ok?[6,95,70]:[153,27,27];
+        doc.setFontSize(8.5);
+        doc.setFont('helvetica','bold');
+        doc.setTextColor(...col);
+        doc.text(mark,M+1,y);
+        doc.setFont('helvetica','normal');
+        doc.setTextColor(55,65,81);
+        const lines=doc.splitTextToSize(txt,W-M*2-10);
+        lines.forEach((l,i)=>{
+          pageCheck(6);
+          doc.text(l,M+8,y);
+          if(i<lines.length-1)y+=4.5;
+        });
+        y+=5;
+      }
+
+      const mealLabels={d:'Desayuno',mm:'Media manana',c:'Comida',me:'Merienda',ce:'Cena'};
+
+      /* ══ PORTADA ══ */
+      doc.setFillColor(...GREEN);
+      doc.rect(0,0,210,42,'F');
+      doc.setTextColor(...WHITE);
+      doc.setFontSize(22);
+      doc.setFont('helvetica','bold');
+      doc.text('MENU SEMANAL',M,20);
+      doc.setFontSize(11);
+      doc.setFont('helvetica','normal');
+      doc.text('Dieta de bajo indice glucemico — Glucosa 110 mg/dL',M,29);
+      const fecha=new Date().toLocaleDateString('es-ES',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+      doc.setFontSize(9);
+      doc.setTextColor(180,230,180);
+      doc.text('Generado el '+fecha,M,37);
+      y=52;
+
+      /* tip */
+      doc.setFillColor(255,251,235);
+      doc.roundedRect(M,y,W-M*2,11,2,2,'F');
+      doc.setFontSize(8.5);
+      doc.setFont('helvetica','bold');
+      doc.setTextColor(146,64,14);
+      doc.text('Regla de oro:',M+3,y+4.5);
+      doc.setFont('helvetica','normal');
+      doc.text('Verdura primero → Proteina → Carbohidrato. Camina 15 min despues de comer.',M+28,y+4.5);
+      doc.setFontSize(8);
+      doc.text('Con dieta y ejercicio muchas personas vuelven a valores normales en 3-6 meses.',M+3,y+9);
+      y+=16;
+
+      /* ══ DIAS ══ */
+      days.forEach((d,di)=>{
+        pageCheck(18);
+        /* cabecera dia */
+        doc.setFillColor(...GREEN);
+        doc.rect(M,y,W-M*2,8,'F');
+        doc.setFillColor(...LIGHT);
+        doc.rect(M+8*2,y,W-M*2-8*2,8,'F');
+        doc.setFillColor(...GREEN);
+        doc.roundedRect(M,y,20,8,1,1,'F');
+        doc.setTextColor(...WHITE);
+        doc.setFontSize(9);
+        doc.setFont('helvetica','bold');
+        doc.text('DIA '+(di+1),M+2,y+5.5);
+        doc.setTextColor(...DARK);
+        doc.setFontSize(11);
+        doc.text(d.name.toUpperCase(),M+22,y+5.5);
+        y+=11;
+
+        d.meals.forEach(m=>{
+          pageCheck(14);
+          doc.setFillColor(248,253,249);
+          doc.rect(M,y,W-M*2,5.5,'F');
+          doc.setTextColor(...GREEN);
+          doc.setFontSize(8);
+          doc.setFont('helvetica','bold');
+          doc.text(mealLabels[m.t].toUpperCase(),M+2,y+4);
+          y+=6.5;
+          m.items.forEach(it=>{
+            pageCheck(5);
+            doc.setFontSize(8.5);
+            doc.setFont('helvetica','normal');
+            doc.setTextColor(55,65,81);
+            doc.text('•',M+3,y);
+            const lines=doc.splitTextToSize(it,W-M*2-10);
+            lines.forEach((l,i)=>{
+              if(i>0)pageCheck(4.5);
+              doc.text(l,M+7,y);
+              y+=4.5;
+            });
+          });
+          y+=1.5;
+        });
+        y+=4;
+      });
+
+      /* ══ LISTA DE LA COMPRA ══ */
+      doc.addPage();y=14;
+      hdr('LISTA DE LA COMPRA SEMANAL',GREEN,WHITE,12);
+
+      shopping.forEach(cat=>{
+        pageCheck(16);
+        doc.setFontSize(9.5);
+        doc.setFont('helvetica','bold');
+        doc.setTextColor(...DARK);
+        doc.text(cat.ic+'  '+cat.name,M,y);
+        y+=5;
+        /* chips en filas */
+        let x=M,rowH=6.5,maxX=W-M;
+        cat.items.forEach(it=>{
+          const tw=doc.getTextWidth(it)+6;
+          if(x+tw>maxX){x=M;y+=rowH;pageCheck(rowH);}
+          doc.setFillColor(240,253,244);
+          doc.setDrawColor(187,247,208);
+          doc.roundedRect(x,y-4,tw,5,1,1,'FD');
+          doc.setFontSize(7.5);
+          doc.setFont('helvetica','normal');
+          doc.setTextColor(22,101,52);
+          doc.text(it,x+3,y-0.5);
+          x+=tw+3;
+        });
+        y+=rowH+4;
+      });
+
+      /* ══ NORMAS CLAVE ══ */
+      pageCheck(20);
+      y+=2;
+      hdr('NORMAS CLAVE',DARK,WHITE,12);
+
+      const yes=rules.filter(r=>r.yes);
+      const no=rules.filter(r=>!r.yes);
+
+      doc.setFontSize(9);
+      doc.setFont('helvetica','bold');
+      doc.setTextColor(...GREEN);
+      doc.text('RECOMENDADO',M,y);
+      y+=5;
+      yes.forEach(r=>{pageCheck(7);bullet(r.text,true);});
+
+      y+=3;
+      doc.setFontSize(9);
+      doc.setFont('helvetica','bold');
+      doc.setTextColor(153,27,27);
+      doc.text('EVITAR',M,y);
+      y+=5;
+      no.forEach(r=>{pageCheck(7);bullet(r.text,false);});
+
+      /* ══ PIE ══ */
+      const total=doc.getNumberOfPages();
+      for(let i=1;i<=total;i++){
+        doc.setPage(i);
+        doc.setFontSize(7.5);
+        doc.setTextColor(180,180,180);
+        doc.text('Menu Semanal — Glucosa 110 mg/dL',M,293);
+        doc.text('Pagina '+i+' de '+total,W-M,293,{align:'right'});
+        doc.setDrawColor(220,220,220);
+        doc.line(M,290,W-M,290);
+      }
+
+      doc.save('menu-glucosa-semanal.pdf');
+    }catch(e){
+      alert('Error al generar el PDF. Asegurate de tener conexion a internet para cargar la libreria.');
+      console.error(e);
+    }finally{
+      btn.innerHTML=orig;
+      btn.disabled=false;
+    }
+  },50);
+}
 </script>
 </body>
 </html>
