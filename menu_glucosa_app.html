@@ -126,6 +126,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
 .nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:10px 4px;cursor:pointer;font-size:10px;font-weight:600;color:#9ca3af;border:none;background:none}
 .nav-btn.active{color:#2d6a4f}
 .nav-btn span{font-size:22px}
+/* ── Recetas y timer ── */
 .steps-list{margin:4px 0 8px;display:flex;flex-direction:column;gap:5px}
 .step-item{display:flex;gap:8px;align-items:flex-start;font-size:12.5px;color:#374151;line-height:1.5}
 .step-num{width:20px;height:20px;border-radius:50%;background:#2d6a4f;color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
@@ -135,20 +136,81 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
 .timer-start{background:#2d6a4f;color:#fff}
 .timer-stop{background:#fee2e2;color:#991b1b}
 .meal-tip-small{font-size:11.5px;color:#92400e;background:#fffbeb;border-left:3px solid #f59e0b;padding:6px 10px;border-radius:0 8px 8px 0;margin-top:6px;line-height:1.4}
+/* ── WhatsApp ── */
 .wa-btn{display:flex;align-items:center;justify-content:center;gap:8px;background:#25d366;color:#fff;border:none;border-radius:14px;padding:10px;font-size:14px;font-weight:700;cursor:pointer;width:100%;margin-bottom:14px;letter-spacing:0.2px}
+/* ── Ajustes: Notificaciones ── */
 .notif-card{background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:14px;margin-bottom:12px}
 .notif-head{font-size:14px;font-weight:700;color:#1b4332;margin-bottom:4px}
 .notif-sub{font-size:12px;color:#6b7280;margin-bottom:12px;line-height:1.4}
 .notif-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f3f4f6;font-size:13px;color:#374151}
 .notif-row:last-child{border-bottom:none}
-.notif-row-lbl{display:flex;align-items:center;gap:6px}
-.notif-time{border:1.5px solid #d1d5db;border-radius:8px;padding:5px 8px;font-size:13px;color:#111;background:#f9fafb;outline:none;width:80px}
+.notif-row-lbl{display:flex;align-items:center;gap:6px;flex:1}
+.notif-time{border:1.5px solid #d1d5db;border-radius:8px;padding:5px 8px;font-size:13px;color:#111;background:#f9fafb;outline:none;width:82px}
 .notif-time:focus{border-color:#40916c}
 .notif-enable-btn{background:linear-gradient(135deg,#2d6a4f,#40916c);color:#fff;border:none;border-radius:14px;padding:12px;font-size:14px;font-weight:700;cursor:pointer;width:100%;margin-top:4px}
 .notif-status{font-size:12px;text-align:center;margin-top:10px;padding:8px;border-radius:10px}
 .ns-ok{background:#d1fae5;color:#065f46}
 .ns-off{background:#f3f4f6;color:#6b7280}
 .notif-tip{font-size:12px;color:#6b7280;background:#f9fafb;border-radius:10px;padding:10px;line-height:1.5;margin-top:6px}
+/* ── Ajustes: Preferencias ── */
+.pref-card{background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:14px;margin-bottom:12px}
+.pref-head{font-size:14px;font-weight:700;color:#1b4332;margin-bottom:4px}
+.pref-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f3f4f6;font-size:13px;color:#374151}
+.pref-row:last-child{border-bottom:none}
+.toggle{position:relative;display:inline-block;width:40px;height:22px;flex-shrink:0}
+.toggle input{opacity:0;width:0;height:0}
+.toggle-slider{position:absolute;cursor:pointer;inset:0;background:#d1d5db;border-radius:22px;transition:.3s}
+.toggle-slider:before{position:absolute;content:"";height:16px;width:16px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.3s}
+.toggle input:checked+.toggle-slider{background:#2d6a4f}
+.toggle input:checked+.toggle-slider:before{transform:translateX(18px)}
+.pref-warn{font-size:13px;margin-left:4px;vertical-align:middle}
+/* ── Dark mode ── */
+.dark-btn{flex-shrink:0;background:rgba(255,255,255,0.15);border:1.5px solid rgba(255,255,255,0.3);border-radius:20px;padding:7px 10px;color:#fff;font-size:16px;cursor:pointer;transition:background 0.15s}
+.dark-btn:active{background:rgba(255,255,255,0.25)}
+[data-dark] body{background:#111827}
+[data-dark] .app{background:#1f2937;box-shadow:0 4px 24px rgba(0,0,0,0.4)}
+[data-dark] .content{background:#1f2937;color:#f3f4f6}
+[data-dark] .meal-card{background:#374151;border-color:#4b5563}
+[data-dark] .meal-header{background:#2d3748;border-bottom-color:#4b5563}
+[data-dark] .meal-body{color:#e5e7eb}
+[data-dark] .meal-extra{background:#1b4332;color:#86efac}
+[data-dark] .step-item{color:#d1fae5}
+[data-dark] .meal-tip-small{background:#292524;border-left-color:#d97706;color:#fcd34d}
+[data-dark] .tip-box{background:#292524;border-left-color:#d97706;color:#fcd34d}
+[data-dark] .meal-lbl{color:#86efac}
+[data-dark] .meal-time{color:#9ca3af}
+[data-dark] .meal-expand{color:#9ca3af}
+[data-dark] .bottom-nav{background:#111827;border-top-color:#374151}
+[data-dark] .nav-btn{color:#6b7280}
+[data-dark] .nav-btn.active{color:#4ade80}
+[data-dark] .day-note-btn{border-color:#4b5563;color:#9ca3af}
+[data-dark] .day-note-ta{background:#111827;color:#e5e7eb;border-color:#40916c}
+[data-dark] .shop-item{background:#374151;border-color:#4b5563}
+[data-dark] .shop-item.done{background:#1f2937;border-color:#374151}
+[data-dark] .shop-item-name{color:#86efac}
+[data-dark] .shop-item.done .shop-item-name{color:#6b7280}
+[data-dark] .shop-cat-name{color:#86efac}
+[data-dark] .shop-progress-bar{background:#374151}
+[data-dark] .rules-card{background:#374151;border-color:#4b5563}
+[data-dark] .rule-item{color:#e5e7eb;border-bottom-color:#4b5563}
+[data-dark] .bubble-bot{background:#374151;color:#f3f4f6;border-color:#4b5563}
+[data-dark] .chat-input-wrap{background:#1f2937;border-top-color:#374151}
+[data-dark] .chat-input-wrap input{background:#374151;border-color:#4b5563;color:#f3f4f6}
+[data-dark] .chat-cat-btn{background:#374151;border-color:#4b5563;color:#86efac}
+[data-dark] .chat-cat-btn.active{background:#2d6a4f;color:#fff;border-color:#2d6a4f}
+[data-dark] .qq{background:#374151;border-color:#4b5563;color:#86efac}
+[data-dark] .wo-day{background:#374151;border-color:#4b5563}
+[data-dark] .wo-day-name{color:#9ca3af}
+[data-dark] .no-match-box{background:#374151;border-color:#4b5563;color:#9ca3af}
+[data-dark] .specialist-badge{background:linear-gradient(135deg,#1b2d24,#1e2a3a)}
+[data-dark] .notif-card,[data-dark] .pref-card{background:#374151;border-color:#4b5563}
+[data-dark] .notif-head,[data-dark] .pref-head{color:#86efac}
+[data-dark] .notif-sub{color:#9ca3af}
+[data-dark] .notif-row,[data-dark] .pref-row{color:#e5e7eb;border-bottom-color:#4b5563}
+[data-dark] .notif-time{background:#1f2937;border-color:#4b5563;color:#e5e7eb}
+[data-dark] .notif-tip{background:#1f2937;color:#9ca3af}
+[data-dark] .timer-wrap{border-top-color:#2d6a4f}
+[data-dark] .timer-display{color:#4ade80}
 </style>
 </head>
 <body>
@@ -158,6 +220,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
       <div class="topbar-title">Menu Semanal</div>
       <div class="topbar-sub">Glucosa 110 mg/dL — bajo indice glucemico</div>
     </div>
+    <button class="dark-btn" id="darkBtn" onclick="toggleDark()" aria-label="Modo oscuro">🌙</button>
     <button class="pdf-btn" onclick="generatePDF()" aria-label="Descargar PDF">
       <span class="pdf-icon">📄</span> PDF
     </button>
@@ -175,9 +238,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
     <button class="nav-btn" onclick="switchTab('compra')" id="nb-compra"><span>🛒</span>Compra</button>
     <button class="nav-btn" onclick="switchTab('normas')" id="nb-normas"><span>✅</span>Normas</button>
     <button class="nav-btn" onclick="switchTab('chat')" id="nb-chat"><span>💬</span>Consultar</button>
-    <button class="nav-btn" onclick="switchTab('alertas')" id="nb-alertas"><span>🔔</span>Alertas</button>
+    <button class="nav-btn" onclick="switchTab('ajustes')" id="nb-ajustes"><span>⚙️</span>Ajust</button>
   </div>
 </div>
+<div id="recipeModal" class="recipe-modal-overlay" style="display:none" onclick="closeRecipe(event)"><div class="recipe-modal" id="recipeModalInner"></div></div>
 <script>
 const days=[
   {name:'Lunes',short:'Lun',meals:[
@@ -508,10 +572,12 @@ function renderDias(){
     const uid='m'+currentDay+'_'+mi;
     const igCls=m.ig==='low'?'ig-low':'ig-med';
     const igTxt=m.ig==='low'?'🟢 IG Bajo':'🟡 IG Medio';
+    const warns=mealWarnings(m);
+    const warnBadge=warns.length?'<span class="pref-warn" title="Incompatible con tus preferencias">'+warns.join('')+'</span>':'';
     return '<div class="meal-card">'
       +'<div class="meal-header">'
         +'<div class="meal-icon mi-'+m.t+'">'+m.ic+'</div>'
-        +'<div class="meal-lbl">'+m.lbl+'</div>'
+        +'<div class="meal-lbl">'+m.lbl+warnBadge+'</div>'
         +'<div class="meal-meta">'
           +'<span class="meal-time">⏱ '+m.time+'</span>'
           +'<span class="meal-ig '+igCls+'">'+igTxt+'</span>'
@@ -855,57 +921,88 @@ function scheduleNotifs(times){
     notifTimeouts.push(id);
   });
 }
-function renderAlertas(){
+/* ── DARK MODE ── */
+function initDark(){
+  if(localStorage.getItem('dark')==='1')document.body.setAttribute('data-dark','');
+  document.getElementById('darkBtn').textContent=document.body.hasAttribute('data-dark')?'☀️':'🌙';
+}
+function toggleDark(){
+  const on=document.body.hasAttribute('data-dark');
+  if(on){document.body.removeAttribute('data-dark');localStorage.setItem('dark','0');}
+  else{document.body.setAttribute('data-dark','');localStorage.setItem('dark','1');}
+  document.getElementById('darkBtn').textContent=document.body.hasAttribute('data-dark')?'☀️':'🌙';
+}
+
+/* ── PREFERENCIAS ALIMENTARIAS ── */
+const PREFS=[
+  {id:'vegetariano',label:'🥗 Vegetariano',kw:['pollo','pechuga','pavo','ternera','merluza','salmon','atun','bacalao','gambas','dorada','lubina']},
+  {id:'sinpescado',label:'🐟 Sin pescado',kw:['merluza','salmon','atun','bacalao','gambas','dorada','lubina']},
+  {id:'sinlacteos',label:'🥛 Sin lácteos',kw:['leche','yogur','queso']},
+  {id:'singluten',label:'🌾 Sin gluten',kw:['pan integral','pan','avena']}
+];
+function loadPrefs(){
+  try{const s=localStorage.getItem('glucosa_prefs');return s?JSON.parse(s):{};} catch(e){return {};}
+}
+function savePrefs(p){try{localStorage.setItem('glucosa_prefs',JSON.stringify(p));}catch(e){}}
+function togglePref(id){
+  const p=loadPrefs();p[id]=!p[id];savePrefs(p);
+  if(document.getElementById('nb-dias').classList.contains('active'))renderDias();
+  else renderAjustes();
+}
+function mealWarnings(meal){
+  const prefs=loadPrefs();
+  const txt=(meal.items.join(' ')+' '+meal.lbl).toLowerCase();
+  return PREFS.filter(p=>prefs[p.id]&&p.kw.some(kw=>txt.includes(kw))).map(p=>p.label.split(' ')[0]);
+}
+
+/* ── AJUSTES (Notificaciones + Preferencias) ── */
+function renderAjustes(){
   const times=loadNotifTimes();
   const perm=('Notification' in window)?Notification.permission:'unsupported';
   const permOk=perm==='granted';
-  const rows=Object.entries(MEAL_NAMES).map(([type,label])=>`
-    <div class="notif-row">
-      <div class="notif-row-lbl">${label}</div>
-      <input class="notif-time" type="time" id="nt_${type}" value="${times[type]||DEFAULT_NOTIF_TIMES[type]}">
-    </div>`).join('');
+  const prefs=loadPrefs();
+  const prefRows=PREFS.map(p=>'<div class="pref-row"><span>'+p.label+'</span>'
+    +'<label class="toggle"><input type="checkbox" '+(prefs[p.id]?'checked':'')
+    +' onchange="togglePref(\''+p.id+'\')"><span class="toggle-slider"></span></label></div>').join('');
+  const notifRows=Object.entries(MEAL_NAMES).map(([type,label])=>'<div class="notif-row">'
+    +'<div class="notif-row-lbl">'+label+'</div>'
+    +'<input class="notif-time" type="time" id="nt_'+type+'" value="'+(times[type]||DEFAULT_NOTIF_TIMES[type])+'"></div>').join('');
   const statusHtml=permOk
-    ?'<div class="notif-status ns-ok">✅ Notificaciones activas — recibirás recordatorios de cada comida</div>'
-    :'<div class="notif-status ns-off">🔕 Notificaciones desactivadas — pulsa el botón para activarlas</div>';
-  document.getElementById('mainContent').innerHTML=`
-    <div class="notif-card">
-      <div class="notif-head">🔔 Recordatorios de comidas</div>
-      <div class="notif-sub">Elige la hora de cada comida y activa los recordatorios. Aparecerán como notificaciones del móvil.</div>
-      ${rows}
-      <button class="notif-enable-btn" onclick="activateNotifs()">${permOk?'💾 Guardar horarios':'🔔 Activar recordatorios'}</button>
-      ${statusHtml}
-    </div>
-    <div class="notif-tip">⚠️ Los recordatorios funcionan mientras el navegador esté abierto en segundo plano. En Android con la PWA instalada funcionan mejor.</div>`;
+    ?'<div class="notif-status ns-ok">✅ Notificaciones activas</div>'
+    :'<div class="notif-status ns-off">🔕 Desactivadas — pulsa el botón para activarlas</div>';
+  document.getElementById('mainContent').innerHTML=
+    '<div class="pref-card">'
+      +'<div class="notif-head">🎛️ Preferencias alimentarias</div>'
+      +'<div class="notif-sub">Activa tus restricciones para ver avisos en las comidas incompatibles</div>'
+      +prefRows+'</div>'
+    +'<div class="notif-card">'
+      +'<div class="notif-head">🔔 Recordatorios de comidas</div>'
+      +'<div class="notif-sub">Configura la hora de cada comida. Recibirás una notificación.</div>'
+      +notifRows
+      +'<button class="notif-enable-btn" onclick="activateNotifs()">'+(permOk?'💾 Guardar horarios':'🔔 Activar recordatorios')+'</button>'
+      +statusHtml+'</div>'
+    +'<div class="notif-tip">⚠️ Los recordatorios funcionan mientras el navegador esté abierto. Con la PWA instalada en Android funcionan mejor.</div>';
 }
 function activateNotifs(){
   if(!('Notification' in window)){alert('Tu navegador no soporta notificaciones.');return;}
   const times={};
-  Object.keys(MEAL_NAMES).forEach(type=>{
-    const el=document.getElementById('nt_'+type);
-    if(el)times[type]=el.value;
-  });
+  Object.keys(MEAL_NAMES).forEach(type=>{const el=document.getElementById('nt_'+type);if(el)times[type]=el.value;});
   saveNotifTimes(times);
-  if(Notification.permission==='granted'){
-    scheduleNotifs(times);
-    renderAlertas();
-  } else {
-    Notification.requestPermission().then(perm=>{
-      if(perm==='granted'){scheduleNotifs(times);}
-      renderAlertas();
-    });
-  }
+  if(Notification.permission==='granted'){scheduleNotifs(times);renderAjustes();}
+  else{Notification.requestPermission().then(p=>{if(p==='granted')scheduleNotifs(times);renderAjustes();});}
 }
 function switchTab(tab){
-  ['dias','compra','normas','chat','alertas'].forEach(t=>{document.getElementById('nb-'+t).classList.toggle('active',t===tab)});
+  ['dias','compra','normas','chat','ajustes'].forEach(t=>{document.getElementById('nb-'+t).classList.toggle('active',t===tab)});
   document.getElementById('dayTabs').style.display=tab==='dias'?'flex':'none';
   document.getElementById('chatInputWrap').style.display=tab==='chat'?'block':'none';
   if(tab==='dias')renderDias();
   else if(tab==='compra')renderCompra();
   else if(tab==='normas')renderNormas();
-  else if(tab==='alertas')renderAlertas();
+  else if(tab==='ajustes')renderAjustes();
   else renderChat();
 }
 buildDayTabs();
+initDark();
 renderDias();
 
 if('serviceWorker' in navigator){
