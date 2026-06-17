@@ -126,6 +126,94 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
 .nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:10px 4px;cursor:pointer;font-size:10px;font-weight:600;color:#9ca3af;border:none;background:none}
 .nav-btn.active{color:#2d6a4f}
 .nav-btn span{font-size:22px}
+/* ── Dark mode ── */
+.dark-btn{flex-shrink:0;background:rgba(255,255,255,0.15);border:1.5px solid rgba(255,255,255,0.3);border-radius:20px;padding:7px 10px;color:#fff;font-size:16px;cursor:pointer;transition:background 0.15s}
+.dark-btn:active{background:rgba(255,255,255,0.28)}
+[data-dark] body{background:#111827}
+[data-dark] .app{background:#1f2937;box-shadow:0 4px 24px rgba(0,0,0,0.4)}
+[data-dark] .content{background:#1f2937;color:#f3f4f6}
+[data-dark] .meal-card{background:#374151;border-color:#4b5563}
+[data-dark] .meal-header{background:#2d3748;border-bottom-color:#4b5563}
+[data-dark] .meal-body{color:#e5e7eb}
+[data-dark] .meal-extra{background:#1b4332;color:#86efac}
+[data-dark] .tip-box{background:#292524;border-left-color:#d97706;color:#fcd34d}
+[data-dark] .meal-lbl{color:#86efac}
+[data-dark] .meal-time{color:#9ca3af}
+[data-dark] .meal-expand{color:#9ca3af}
+[data-dark] .bottom-nav{background:#111827;border-top-color:#374151}
+[data-dark] .nav-btn{color:#6b7280}
+[data-dark] .nav-btn.active{color:#4ade80}
+[data-dark] .day-note-btn{border-color:#4b5563;color:#9ca3af}
+[data-dark] .day-note-ta{background:#111827;color:#e5e7eb;border-color:#40916c}
+[data-dark] .shop-item{background:#374151;border-color:#4b5563}
+[data-dark] .shop-item.done{background:#1f2937;border-color:#374151}
+[data-dark] .shop-item-name{color:#86efac}
+[data-dark] .shop-item.done .shop-item-name{color:#6b7280}
+[data-dark] .shop-cat-name{color:#86efac}
+[data-dark] .shop-progress-bar{background:#374151}
+[data-dark] .rules-card{background:#374151;border-color:#4b5563}
+[data-dark] .rule-item{color:#e5e7eb;border-bottom-color:#4b5563}
+[data-dark] .section-title{color:#9ca3af}
+[data-dark] .bubble-bot{background:#374151;color:#f3f4f6;border-color:#4b5563}
+[data-dark] .chat-input-wrap{background:#1f2937;border-top-color:#374151}
+[data-dark] .chat-input-wrap input{background:#374151;border-color:#4b5563;color:#f3f4f6}
+[data-dark] .chat-cat-btn{background:#374151;border-color:#4b5563;color:#86efac}
+[data-dark] .chat-cat-btn.active{background:#2d6a4f;color:#fff;border-color:#2d6a4f}
+[data-dark] .qq{background:#374151;border-color:#4b5563;color:#86efac}
+[data-dark] .wo-day{background:#374151;border-color:#4b5563}
+[data-dark] .wo-day-name{color:#9ca3af}
+[data-dark] .no-match-box{background:#374151;border-color:#4b5563;color:#9ca3af}
+/* ── Notifications ── */
+.notif-card{background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:14px;margin-bottom:12px}
+.notif-head{font-size:14px;font-weight:700;color:#1b4332;margin-bottom:4px}
+.notif-sub{font-size:12px;color:#6b7280;margin-bottom:12px}
+.notif-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f3f4f6;font-size:13px;color:#374151}
+.notif-row:last-of-type{border-bottom:none}
+.notif-row-lbl{flex:1}
+.notif-time{border:1px solid #d1d5db;border-radius:8px;padding:4px 8px;font-size:13px;color:#374151;background:#f9fafb}
+.notif-enable-btn{width:100%;margin-top:12px;padding:10px;background:linear-gradient(135deg,#2d6a4f,#40916c);color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer}
+.notif-status{margin-top:8px;font-size:12px;text-align:center;padding:6px;border-radius:8px}
+.ns-ok{background:#d1fae5;color:#065f46}
+.ns-off{background:#fee2e2;color:#991b1b}
+.notif-tip{font-size:11.5px;color:#6b7280;margin-top:8px;background:#f9fafb;border-radius:10px;padding:10px;line-height:1.5}
+/* ── Preferences ── */
+.pref-card{background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:14px;margin-bottom:12px}
+.pref-head{font-size:14px;font-weight:700;color:#1b4332;margin-bottom:4px}
+.pref-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f3f4f6;font-size:13px;color:#374151}
+.pref-row:last-of-type{border-bottom:none}
+.toggle{position:relative;display:inline-block;width:40px;height:22px;flex-shrink:0}
+.toggle input{opacity:0;width:0;height:0}
+.toggle-slider{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background:#d1d5db;border-radius:22px;transition:.3s}
+.toggle-slider:before{position:absolute;content:"";height:16px;width:16px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.3s}
+.toggle input:checked+.toggle-slider{background:#2d6a4f}
+.toggle input:checked+.toggle-slider:before{transform:translateX(18px)}
+.pref-warn{font-size:14px;margin-left:4px;vertical-align:middle}
+[data-dark] .notif-card,[data-dark] .pref-card{background:#374151;border-color:#4b5563}
+[data-dark] .notif-head,[data-dark] .pref-head{color:#86efac}
+[data-dark] .notif-sub{color:#9ca3af}
+[data-dark] .notif-row,[data-dark] .pref-row{color:#e5e7eb;border-bottom-color:#4b5563}
+[data-dark] .notif-time{background:#1f2937;border-color:#4b5563;color:#e5e7eb}
+[data-dark] .notif-tip{background:#1f2937;color:#9ca3af}
+/* ── Recipe modal ── */
+.recipe-modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.55);z-index:1000;display:flex;align-items:flex-end;justify-content:center}
+.recipe-modal{background:#fff;border-radius:20px 20px 0 0;width:100%;max-width:420px;max-height:85vh;overflow-y:auto;padding:20px 16px 32px}
+.recipe-close{float:right;background:none;border:none;font-size:22px;cursor:pointer;color:#9ca3af;margin-top:-4px}
+.recipe-steps{margin:12px 0;padding:0;list-style:none}
+.recipe-step{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid #f3f4f6;font-size:13.5px;color:#374151;line-height:1.5}
+.recipe-step:last-child{border-bottom:none}
+.recipe-step-num{width:24px;height:24px;border-radius:50%;background:#2d6a4f;color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:1px}
+.recipe-timer{margin-top:14px;background:#f0fdf4;border-radius:14px;padding:14px;text-align:center}
+.recipe-timer-display{font-size:40px;font-weight:700;color:#1b4332;letter-spacing:2px;font-variant-numeric:tabular-nums}
+.recipe-timer-btns{display:flex;gap:8px;justify-content:center;margin-top:10px}
+.recipe-timer-btns button{padding:8px 18px;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer}
+.rtb-start{background:#2d6a4f;color:#fff}
+.rtb-pause{background:#f59e0b;color:#fff}
+.rtb-reset{background:#e5e7eb;color:#374151}
+[data-dark] .recipe-modal{background:#1f2937;color:#f3f4f6}
+[data-dark] .recipe-step{color:#e5e7eb;border-bottom-color:#374151}
+[data-dark] .recipe-timer{background:#111827}
+[data-dark] .recipe-timer-display{color:#86efac}
+[data-dark] .recipe-close{color:#9ca3af}
 </style>
 </head>
 <body>
@@ -135,6 +223,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
       <div class="topbar-title">Menu Semanal</div>
       <div class="topbar-sub">Glucosa 110 mg/dL — bajo indice glucemico</div>
     </div>
+    <button class="dark-btn" id="darkBtn" onclick="toggleDark()" aria-label="Modo oscuro">🌙</button>
     <button class="pdf-btn" onclick="generatePDF()" aria-label="Descargar PDF">
       <span class="pdf-icon">📄</span> PDF
     </button>
@@ -152,8 +241,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
     <button class="nav-btn" onclick="switchTab('compra')" id="nb-compra"><span>🛒</span>Compra</button>
     <button class="nav-btn" onclick="switchTab('normas')" id="nb-normas"><span>✅</span>Normas</button>
     <button class="nav-btn" onclick="switchTab('chat')" id="nb-chat"><span>💬</span>Consultar</button>
+    <button class="nav-btn" onclick="switchTab('ajustes')" id="nb-ajustes"><span>⚙️</span>Ajust</button>
   </div>
 </div>
+<div id="recipeModal" class="recipe-modal-overlay" style="display:none" onclick="closeRecipe(event)"><div class="recipe-modal" id="recipeModalInner"></div></div>
 <script>
 const days=[
   {name:'Lunes',short:'Lun',meals:[
