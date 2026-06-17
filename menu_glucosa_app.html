@@ -31,10 +31,46 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
 .arr{font-size:10px;color:#aaa;margin:2px 0;text-align:center}
 .tip-box{background:#fffbeb;border-left:3px solid #f59e0b;border-radius:0 10px 10px 0;padding:10px 12px;margin-bottom:12px;font-size:12.5px;color:#92400e;line-height:1.5}
 .section-title{font-size:11px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:0.7px;margin-bottom:10px}
+/* ── Week overview (Mealie calendar) ── */
+.week-overview{display:flex;gap:5px;overflow-x:auto;padding-bottom:2px;margin-bottom:12px;scrollbar-width:none}
+.week-overview::-webkit-scrollbar{display:none}
+.wo-day{flex:1;min-width:42px;display:flex;flex-direction:column;align-items:center;gap:2px;padding:7px 4px;border-radius:12px;cursor:pointer;border:1.5px solid #e5e7eb;background:#f9fafb;transition:all 0.15s}
+.wo-day.active{background:#2d6a4f;border-color:#2d6a4f;color:#fff}
+.wo-day-name{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:inherit}
+.wo-day-ic{font-size:17px}
+.wo-day:not(.active) .wo-day-name{color:#6b7280}
+/* ── Meal card expand ── */
+.meal-meta{display:flex;align-items:center;gap:6px;margin-left:auto}
+.meal-ig{font-size:10px;font-weight:700;border-radius:8px;padding:2px 7px}
+.ig-low{background:#d1fae5;color:#065f46}
+.ig-med{background:#fef9c3;color:#854d0e}
+.meal-time{font-size:10px;color:#9ca3af;display:flex;align-items:center;gap:2px}
+.meal-expand{width:24px;height:24px;border-radius:50%;border:none;background:transparent;cursor:pointer;font-size:14px;color:#9ca3af;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform 0.2s}
+.meal-expand.open{transform:rotate(180deg)}
+.meal-extra{padding:8px 14px 10px;border-top:1px solid #e8f5e9;background:#f0fdf4;font-size:12.5px;color:#166534;line-height:1.5;display:none}
+.meal-extra.open{display:block}
+.meal-extra strong{color:#1b4332}
+/* ── Nota del día ── */
+.day-note-wrap{margin-top:4px;margin-bottom:4px}
+.day-note-btn{font-size:12px;color:#9ca3af;background:none;border:1px dashed #d1d5db;border-radius:10px;padding:6px 12px;cursor:pointer;width:100%;text-align:left;transition:all 0.15s}
+.day-note-btn:hover{border-color:#40916c;color:#40916c}
+.day-note-ta{width:100%;border:1.5px solid #40916c;border-radius:10px;padding:8px 12px;font-size:13px;font-family:inherit;resize:none;color:#374151;outline:none;background:#f0fdf4;margin-top:6px;display:none}
+.day-note-ta.open{display:block}
+/* ── Shopping interactivo (Mealie-style) ── */
+.shop-progress-wrap{margin-bottom:14px}
+.shop-progress-label{display:flex;justify-content:space-between;font-size:12px;color:#6b7280;margin-bottom:5px}
+.shop-progress-bar{height:6px;background:#e5e7eb;border-radius:3px;overflow:hidden}
+.shop-progress-fill{height:100%;background:linear-gradient(90deg,#2d6a4f,#40916c);border-radius:3px;transition:width 0.3s}
+.shop-clear-btn{font-size:11px;color:#40916c;cursor:pointer;text-decoration:underline;text-underline-offset:2px}
 .shop-cat{margin-bottom:14px}
 .shop-cat-name{font-size:13px;font-weight:600;color:#2d6a4f;margin-bottom:6px}
-.shop-items{display:flex;flex-wrap:wrap;gap:5px}
-.shop-chip{font-size:12px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:20px;padding:3px 10px;color:#166534}
+.shop-items{display:flex;flex-direction:column;gap:3px}
+.shop-item{display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:10px;background:#f0fdf4;border:1px solid #bbf7d0;cursor:pointer;transition:all 0.15s;-webkit-tap-highlight-color:transparent}
+.shop-item.done{background:#f9fafb;border-color:#e5e7eb;opacity:0.6}
+.shop-item-check{width:18px;height:18px;border-radius:50%;border:2px solid #40916c;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;transition:all 0.15s}
+.shop-item.done .shop-item-check{background:#40916c;border-color:#40916c;color:#fff}
+.shop-item-name{font-size:12.5px;color:#166534;transition:all 0.15s}
+.shop-item.done .shop-item-name{text-decoration:line-through;color:#9ca3af}
 .rule-item{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid #f3f4f6;font-size:13px;color:#374151}
 .rule-item:last-child{border-bottom:none}
 .rule-dot{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;margin-top:1px;font-weight:700}
@@ -114,53 +150,53 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
 <script>
 const days=[
   {name:'Lunes',short:'Lun',meals:[
-    {t:'d',lbl:'Desayuno',ic:'☕',items:['Avena en copos (40g) con leche entera','Canela y un punado de nueces','Cafe o te sin azucar']},
-    {t:'mm',lbl:'Media manana',ic:'🍎',items:['1 manzana pequena + 2 nueces']},
-    {t:'c',lbl:'Comida',ic:'🥣',items:['Ensalada de espinacas con tomate y pepino','Pechuga de pollo a la plancha','Lentejas estofadas (racion pequena)','Pan integral (1 rebanada)']},
-    {t:'me',lbl:'Merienda',ic:'🥛',items:['Yogur natural sin azucar con semillas de chia']},
-    {t:'ce',lbl:'Cena',ic:'🌙',items:['Merluza al horno con limon y ajo','Brocoli al vapor','Tortilla de 2 huevos']}
+    {t:'d',lbl:'Desayuno',ic:'☕',ig:'low',time:'5 min',tip:'Anade una pizca de canela — reduce el pico de glucosa hasta un 20%. Sustituye la leche por bebida de avena sin azucar si lo prefieres.',items:['Avena en copos (40g) con leche entera','Canela y un punado de nueces','Cafe o te sin azucar']},
+    {t:'mm',lbl:'Media manana',ic:'🍎',ig:'low',time:'0 min',tip:'Manzana verde tiene menos azucar que la roja. Come siempre con la piel y acompanada de las nueces para bajar el IG.',items:['1 manzana pequena + 2 nueces']},
+    {t:'c',lbl:'Comida',ic:'🥣',ig:'low',time:'25 min',tip:'Come la ensalada primero, despues el pollo y al final las lentejas. Este orden puede reducir el pico de glucosa hasta un 40%.',items:['Ensalada de espinacas con tomate y pepino','Pechuga de pollo a la plancha','Lentejas estofadas (racion pequena)','Pan integral (1 rebanada)']},
+    {t:'me',lbl:'Merienda',ic:'🥛',ig:'low',time:'2 min',tip:'Las semillas de chia triplicaran su tamano en el yogur. Ricas en omega-3 y fibra, mantienen la glucosa estable horas.',items:['Yogur natural sin azucar con semillas de chia']},
+    {t:'ce',lbl:'Cena',ic:'🌙',ig:'low',time:'20 min',tip:'Merluza al horno 180°C durante 15 min con aceite, limon y ajo. Brocoli al vapor solo 4-5 min para conservar sus nutrientes.',items:['Merluza al horno con limon y ajo','Brocoli al vapor','Tortilla de 2 huevos']}
   ]},
   {name:'Martes',short:'Mar',meals:[
-    {t:'d',lbl:'Desayuno',ic:'☕',items:['2 huevos revueltos con tomate','Pan integral tostado (1 rebanada)','Cafe o te sin azucar']},
-    {t:'mm',lbl:'Media manana',ic:'🍎',items:['Punado de almendras (15 unidades)']},
-    {t:'c',lbl:'Comida',ic:'🥣',items:['Ensalada de lechuga, pimiento y zanahoria','Salmon a la plancha','Arroz integral (3 cucharadas cocidas)']},
-    {t:'me',lbl:'Merienda',ic:'🥛',items:['1 pera + queso fresco']},
-    {t:'ce',lbl:'Cena',ic:'🌙',items:['Crema de calabacin con aceite de oliva','Pavo a la plancha','Pepino con aceite y oregano']}
+    {t:'d',lbl:'Desayuno',ic:'☕',ig:'low',time:'8 min',tip:'Huevos revueltos a fuego bajo para que queden cremosos. El tomate mejor crudo — conserva mas vitamina C y antioxidantes.',items:['2 huevos revueltos con tomate','Pan integral tostado (1 rebanada)','Cafe o te sin azucar']},
+    {t:'mm',lbl:'Media manana',ic:'🍎',ig:'low',time:'0 min',tip:'15 almendras = porcion ideal. Son ricas en magnesio, mineral fundamental para la sensibilidad a la insulina.',items:['Punado de almendras (15 unidades)']},
+    {t:'c',lbl:'Comida',ic:'🥣',ig:'med',time:'25 min',tip:'Arroz integral al dente tiene IG mas bajo. Sirve el salmon encima de la ensalada y deja el arroz para el final del plato.',items:['Ensalada de lechuga, pimiento y zanahoria','Salmon a la plancha','Arroz integral (3 cucharadas cocidas)']},
+    {t:'me',lbl:'Merienda',ic:'🥛',ig:'low',time:'1 min',tip:'Fruta + proteina estabiliza la glucosa durante 3-4 horas. La pera tiene IG~38, uno de los mas bajos entre las frutas.',items:['1 pera + queso fresco']},
+    {t:'ce',lbl:'Cena',ic:'🌙',ig:'low',time:'20 min',tip:'Crema de calabacin: sofrie con aceite, cubre de agua, tritura. Sin nata — igual de cremosa y mucho mas ligera.',items:['Crema de calabacin con aceite de oliva','Pavo a la plancha','Pepino con aceite y oregano']}
   ]},
   {name:'Miercoles',short:'Mie',meals:[
-    {t:'d',lbl:'Desayuno',ic:'☕',items:['Yogur natural con avena (30g) y arandanos','Canela al gusto','Cafe o te sin azucar']},
-    {t:'mm',lbl:'Media manana',ic:'🍎',items:['Palitos de zanahoria o pepino']},
-    {t:'c',lbl:'Comida',ic:'🥣',items:['Gazpacho o ensalada mixta','Ternera magra a la plancha','Garbanzos con espinacas (racion pequena)']},
-    {t:'me',lbl:'Merienda',ic:'🥛',items:['2 nueces + 1 kiwi']},
-    {t:'ce',lbl:'Cena',ic:'🌙',items:['Revuelto de huevos con champinones','Esparragos a la plancha','Ensalada de tomate']}
+    {t:'d',lbl:'Desayuno',ic:'☕',ig:'low',time:'3 min',tip:'Arandanos tienen IG~25 y son los mas ricos en antioxidantes. Con uso regular mejoran la sensibilidad a la insulina.',items:['Yogur natural con avena (30g) y arandanos','Canela al gusto','Cafe o te sin azucar']},
+    {t:'mm',lbl:'Media manana',ic:'🍎',ig:'low',time:'2 min',tip:'Zanahoria cruda IG~35, mucho menor que cocida IG~85. Siempre cruda o al dente para conservar su bajo IG.',items:['Palitos de zanahoria o pepino']},
+    {t:'c',lbl:'Comida',ic:'🥣',ig:'low',time:'20 min',tip:'Garbanzos IG~33, de los mejores carbohidratos. Come primero el gazpacho y las espinacas antes de la ternera y los garbanzos.',items:['Gazpacho o ensalada mixta','Ternera magra a la plancha','Garbanzos con espinacas (racion pequena)']},
+    {t:'me',lbl:'Merienda',ic:'🥛',ig:'low',time:'0 min',tip:'Kiwi IG~50, rico en vitamina C y fibra. Con nueces (omega-3) es una combinacion antiinflamatoria perfecta.',items:['2 nueces + 1 kiwi']},
+    {t:'ce',lbl:'Cena',ic:'🌙',ig:'low',time:'12 min',tip:'Champinones tienen fibra, proteina vegetal y practicamente 0 calorias. Son perfectos para saciar sin afectar la glucosa.',items:['Revuelto de huevos con champinones','Esparragos a la plancha','Ensalada de tomate']}
   ]},
   {name:'Jueves',short:'Jue',meals:[
-    {t:'d',lbl:'Desayuno',ic:'☕',items:['Avena (40g) con leche','Medio platano verde pequeno','Canela — Cafe o te sin azucar']},
-    {t:'mm',lbl:'Media manana',ic:'🍎',items:['Punado de nueces o almendras']},
-    {t:'c',lbl:'Comida',ic:'🥣',items:['Ensalada de rugula con tomate cherry','Pollo al horno con hierbas','Quinoa (3-4 cucharadas cocidas)']},
-    {t:'me',lbl:'Merienda',ic:'🥛',items:['Yogur natural sin azucar']},
-    {t:'ce',lbl:'Cena',ic:'🌙',items:['Dorada o lubina al horno','Judias verdes salteadas con ajo','Huevo cocido']}
+    {t:'d',lbl:'Desayuno',ic:'☕',ig:'med',time:'5 min',tip:'Usa SOLO medio platano VERDE. El platano maduro (amarillo) tiene IG mucho mas alto. La avena y la canela compensan el efecto.',items:['Avena (40g) con leche','Medio platano verde pequeno','Canela — Cafe o te sin azucar']},
+    {t:'mm',lbl:'Media manana',ic:'🍎',ig:'low',time:'0 min',tip:'Varia entre nueces y almendras a lo largo de la semana: las nueces aportan omega-3, las almendras magnesio.',items:['Punado de nueces o almendras']},
+    {t:'c',lbl:'Comida',ic:'🥣',ig:'low',time:'25 min',tip:'Quinoa IG~53 con todos los aminoacidos esenciales. Cocinar 15 min y dejar reposar 5 min tapado para que quede perfecta.',items:['Ensalada de rugula con tomate cherry','Pollo al horno con hierbas','Quinoa (3-4 cucharadas cocidas)']},
+    {t:'me',lbl:'Merienda',ic:'🥛',ig:'low',time:'1 min',tip:'Anade semillas de chia o lino al yogur para aumentar la fibra y el omega-3. Muy saciante y sin efecto en la glucosa.',items:['Yogur natural sin azucar']},
+    {t:'ce',lbl:'Cena',ic:'🌙',ig:'low',time:'20 min',tip:'Dorada al horno 180°C, 20 min. Judias verdes salteadas con ajo en sarten, solo 5 min para que queden al dente.',items:['Dorada o lubina al horno','Judias verdes salteadas con ajo','Huevo cocido']}
   ]},
   {name:'Viernes',short:'Vie',meals:[
-    {t:'d',lbl:'Desayuno',ic:'☕',items:['2 huevos a la plancha o cocidos','Aguacate con tomate','Cafe o te sin azucar']},
-    {t:'mm',lbl:'Media manana',ic:'🍎',items:['1 manzana + 2 nueces']},
-    {t:'c',lbl:'Comida',ic:'🥣',items:['Sopa de verduras','Atun o bacalao a la plancha','Lentejas (racion pequena)','Pan integral (1 rebanada)']},
-    {t:'me',lbl:'Merienda',ic:'🥛',items:['Queso fresco con un poco de canela']},
-    {t:'ce',lbl:'Cena',ic:'🌙',items:['Tortilla francesa de 2 huevos con champinones','Ensalada de espinacas con aceite de oliva']}
+    {t:'d',lbl:'Desayuno',ic:'☕',ig:'low',time:'10 min',tip:'Aguacate IG~15. Su grasa monoinsaturada ralentiza la absorcion del desayuno entero y reduce el pico de glucosa.',items:['2 huevos a la plancha o cocidos','Aguacate con tomate','Cafe o te sin azucar']},
+    {t:'mm',lbl:'Media manana',ic:'🍎',ig:'low',time:'0 min',tip:'Manzana con nueces — fibra + grasa saludable = glucosa estable durante 3 horas. Combinacion ideal para media manana.',items:['1 manzana + 2 nueces']},
+    {t:'c',lbl:'Comida',ic:'🥣',ig:'low',time:'20 min',tip:'Come la sopa de verduras primero siempre. Atun al natural es proteina de alta calidad sin carbohidratos ni grasa.',items:['Sopa de verduras','Atun o bacalao a la plancha','Lentejas (racion pequena)','Pan integral (1 rebanada)']},
+    {t:'me',lbl:'Merienda',ic:'🥛',ig:'low',time:'1 min',tip:'Queso fresco IG~0, rico en calcio y proteina. La canela encima aporta sabor dulce y reduce el apetito de azucar.',items:['Queso fresco con un poco de canela']},
+    {t:'ce',lbl:'Cena',ic:'🌙',ig:'low',time:'10 min',tip:'Tortilla esponjosa a fuego bajo. Champinones dan sabor umami sin calorias. Espinacas frescas con aceite de oliva virgen.',items:['Tortilla francesa de 2 huevos con champinones','Ensalada de espinacas con aceite de oliva']}
   ]},
   {name:'Sabado',short:'Sab',meals:[
-    {t:'d',lbl:'Desayuno',ic:'☕',items:['Avena con leche y fresas frescas','Nueces encima — Cafe o te sin azucar']},
-    {t:'mm',lbl:'Media manana',ic:'🍎',items:['Punado de arandanos o fresas']},
-    {t:'c',lbl:'Comida',ic:'🥣',items:['Ensalada completa con huevo cocido','Pollo asado','Boniato pequeno asado']},
-    {t:'me',lbl:'Merienda',ic:'🥛',items:['Yogur natural + 1 kiwi']},
-    {t:'ce',lbl:'Cena',ic:'🌙',items:['Gambas a la plancha con ajo y limon','Brocoli o coliflor al vapor','Revuelto de verduras']}
+    {t:'d',lbl:'Desayuno',ic:'☕',ig:'low',time:'5 min',tip:'Fresas IG~40 y muy ricas en vitamina C. Con avena y nueces es uno de los desayunos mas potentes para controlar la glucosa.',items:['Avena con leche y fresas frescas','Nueces encima — Cafe o te sin azucar']},
+    {t:'mm',lbl:'Media manana',ic:'🍎',ig:'low',time:'0 min',tip:'Frutos rojos tienen solo 1-3g de azucar por 100g y estan cargados de antioxidantes. Perfectos sin restriccion.',items:['Punado de arandanos o fresas']},
+    {t:'c',lbl:'Comida',ic:'🥣',ig:'med',time:'35 min',tip:'Boniato asado IG~44 vs patata hervida IG~78. Porcion maxima: la mitad de un boniato pequeno, siempre al final del plato.',items:['Ensalada completa con huevo cocido','Pollo asado','Boniato pequeno asado']},
+    {t:'me',lbl:'Merienda',ic:'🥛',ig:'low',time:'2 min',tip:'Kiwi tiene mas vitamina C que la naranja y fibra que ayuda al transito intestinal. Perfecto con yogur natural.',items:['Yogur natural + 1 kiwi']},
+    {t:'ce',lbl:'Cena',ic:'🌙',ig:'low',time:'15 min',tip:'Gambas a la plancha 2 min por lado con ajo y limon. Muy ligeras y altas en proteina. Brocoli al vapor solo 4 min.',items:['Gambas a la plancha con ajo y limon','Brocoli o coliflor al vapor','Revuelto de verduras']}
   ]},
   {name:'Domingo',short:'Dom',meals:[
-    {t:'d',lbl:'Desayuno',ic:'☕',items:['Tortilla de 2 huevos con tomate y queso fresco','Cafe o te sin azucar']},
-    {t:'mm',lbl:'Media manana',ic:'🍎',items:['1 pera o manzana + almendras']},
-    {t:'c',lbl:'Comida',ic:'🥣',items:['Crema de verduras (calabaza, zanahoria, puerro)','Merluza o salmon al horno','Ensalada de garbanzos con pimiento']},
-    {t:'me',lbl:'Merienda',ic:'🥛',items:['Yogur natural con semillas']},
-    {t:'ce',lbl:'Cena',ic:'🌙',items:['Pavo o pollo a la plancha','Esparragos o judias verdes','Ensalada de tomate']}
+    {t:'d',lbl:'Desayuno',ic:'☕',ig:'low',time:'10 min',tip:'Tortilla sin pan ni carbohidratos — empezar el domingo con proteina y grasa es ideal para el metabolismo del dia.',items:['Tortilla de 2 huevos con tomate y queso fresco','Cafe o te sin azucar']},
+    {t:'mm',lbl:'Media manana',ic:'🍎',ig:'low',time:'0 min',tip:'El domingo puedes tomar una fruta un poco mas generosa si has hecho ejercicio. Come siempre la fruta con piel.',items:['1 pera o manzana + almendras']},
+    {t:'c',lbl:'Comida',ic:'🥣',ig:'low',time:'25 min',tip:'Crema de verduras sin nata — tritura con batidora y un chorro de aceite de oliva. Cremosa, ligera y muy nutritiva.',items:['Crema de verduras (calabaza, zanahoria, puerro)','Merluza o salmon al horno','Ensalada de garbanzos con pimiento']},
+    {t:'me',lbl:'Merienda',ic:'🥛',ig:'low',time:'2 min',tip:'Mezcla de semillas (chia, lino, calabaza) — perfectas para la microbiota y la sensibilidad a la insulina a largo plazo.',items:['Yogur natural con semillas']},
+    {t:'ce',lbl:'Cena',ic:'🌙',ig:'low',time:'15 min',tip:'Cena ligera sin carbohidrato — ideal para una buena glucosa en ayunas el lunes. Pavo + verdura = combinacion perfecta.',items:['Pavo o pollo a la plancha','Esparragos o judias verdes','Ensalada de tomate']}
   ]}
 ];
 const shopping=[
@@ -436,14 +472,58 @@ function selectDay(i){
 }
 function renderDias(){
   const d=days[currentDay];
+  const weekOv='<div class="week-overview">'+days.map((day,i)=>'<div class="wo-day'+(i===currentDay?' active':'')+'" onclick="selectDay('+i+')">'+'<span class="wo-day-name">'+day.short+'</span><span class="wo-day-ic">'+day.meals[0].ic+'</span></div>').join('')+'</div>';
+  const cards=d.meals.map((m,mi)=>{
+    const uid='m'+currentDay+'_'+mi;
+    const igCls=m.ig==='low'?'ig-low':'ig-med';
+    const igTxt=m.ig==='low'?'🟢 IG Bajo':'🟡 IG Medio';
+    return '<div class="meal-card">'
+      +'<div class="meal-header">'
+        +'<div class="meal-icon mi-'+m.t+'">'+m.ic+'</div>'
+        +'<div class="meal-lbl">'+m.lbl+'</div>'
+        +'<div class="meal-meta">'
+          +'<span class="meal-time">⏱ '+m.time+'</span>'
+          +'<span class="meal-ig '+igCls+'">'+igTxt+'</span>'
+          +'<button class="meal-expand" id="exp_'+uid+'" onclick="toggleMealExtra(\''+uid+'\')" aria-label="Consejo">▼</button>'
+        +'</div>'
+      +'</div>'
+      +'<div class="meal-body">'+m.items.join('<div class="arr">↓</div>')+'</div>'
+      +'<div class="meal-extra" id="extra_'+uid+'"><strong>Consejo:</strong> '+m.tip+'</div>'
+    +'</div>';
+  }).join('');
+  const noteVal=getNoteVal(currentDay);
+  const noteLbl=noteVal?'📝 Ver nota del dia':'📝 Anadir nota del dia';
+  const noteWrap='<div class="day-note-wrap">'
+    +'<button class="day-note-btn" onclick="toggleNote('+currentDay+')">'+noteLbl+'</button>'
+    +'<textarea class="day-note-ta'+(noteVal?' open':'')+'" id="noteTA_'+currentDay+'" rows="3" placeholder="Notas del dia: como te has sentido, que has comido de mas..." onblur="saveNote('+currentDay+')">'+noteVal+'</textarea>'
+    +'</div>';
   document.getElementById('mainContent').innerHTML=
-    `<div class="tip-box"><strong>Regla:</strong> Verdura primero &rarr; Proteina &rarr; Carbohidrato. Camina 15 min despues.</div>`+
-    d.meals.map(m=>`<div class="meal-card"><div class="meal-header"><div class="meal-icon mi-${m.t}">${m.ic}</div><div class="meal-lbl">${m.lbl}</div></div><div class="meal-body">${m.items.join('<div class="arr">↓</div>')}</div></div>`).join('');
+    '<div class="tip-box"><strong>Regla:</strong> Verdura primero &rarr; Proteina &rarr; Carbohidrato. Camina 15 min despues.</div>'+
+    weekOv+cards+noteWrap;
 }
 function renderCompra(){
-  document.getElementById('mainContent').innerHTML=
-    `<div class="section-title">Lista de la compra semanal</div>`+
-    shopping.map(cat=>`<div class="shop-cat"><div class="shop-cat-name">${cat.ic} ${cat.name}</div><div class="shop-items">${cat.items.map(i=>`<span class="shop-chip">${i}</span>`).join('')}</div></div>`).join('');
+  loadShopState();
+  const total=shopping.reduce((s,c)=>s+c.items.length,0);
+  const done=Object.values(shopState).filter(Boolean).length;
+  const pct=total?Math.round(done/total*100):0;
+  const progress='<div class="shop-progress-wrap">'
+    +'<div class="shop-progress-label"><span><strong>Lista de la compra</strong> — semana completa</span>'
+    +'<span class="shop-clear-btn" onclick="clearShop()">'+(done>0?'Limpiar marcados':'')+'</span></div>'
+    +'<div class="shop-progress-bar"><div class="shop-progress-fill" id="shopFill" style="width:'+pct+'%"></div></div>'
+    +'<div class="shop-progress-label" style="margin-top:4px"><span style="color:#40916c;font-weight:600">'+done+' de '+total+' en la cesta</span></div>'
+    +'</div>';
+  const cats=shopping.map((cat,ci)=>'<div class="shop-cat">'
+    +'<div class="shop-cat-name">'+cat.ic+' '+cat.name+'</div>'
+    +'<div class="shop-items">'+cat.items.map((item,ii)=>{
+      const key=ci+'_'+ii;
+      const checked=shopState[key]||false;
+      return '<div class="shop-item'+(checked?' done':'')+'" onclick="toggleShopItem(\''+key+'\')" id="si_'+key+'">'
+        +'<div class="shop-item-check">'+(checked?'✓':'')+'</div>'
+        +'<span class="shop-item-name">'+item+'</span>'
+        +'</div>';
+    }).join('')+'</div>'
+    +'</div>').join('');
+  document.getElementById('mainContent').innerHTML=progress+cats;
 }
 function renderNormas(){
   document.getElementById('mainContent').innerHTML=
@@ -608,6 +688,62 @@ function clearChat(){
   chatHistory=[];
   try{localStorage.removeItem('glucosa_chat');}catch(e){}
   renderChat();
+}
+
+/* ── SHOP STATE ── */
+let shopState={};
+function loadShopState(){
+  try{const s=localStorage.getItem('glucosa_shop');if(s)shopState=JSON.parse(s);}catch(e){shopState={};}
+}
+function saveShopState(){
+  try{localStorage.setItem('glucosa_shop',JSON.stringify(shopState));}catch(e){}
+}
+function toggleShopItem(key){
+  shopState[key]=!shopState[key];
+  saveShopState();
+  const el=document.getElementById('si_'+key);
+  if(!el)return;
+  const checked=shopState[key];
+  el.classList.toggle('done',checked);
+  el.querySelector('.shop-item-check').textContent=checked?'✓':'';
+  updateShopProgress();
+}
+function updateShopProgress(){
+  const total=shopping.reduce((s,c)=>s+c.items.length,0);
+  const done=Object.values(shopState).filter(Boolean).length;
+  const pct=total?Math.round(done/total*100):0;
+  const fill=document.getElementById('shopFill');
+  if(fill)fill.style.width=pct+'%';
+}
+function clearShop(){shopState={};saveShopState();renderCompra();}
+
+/* ── MEAL CARDS ── */
+function toggleMealExtra(uid){
+  const extra=document.getElementById('extra_'+uid);
+  const btn=document.getElementById('exp_'+uid);
+  if(!extra||!btn)return;
+  extra.classList.toggle('open');
+  btn.classList.toggle('open');
+}
+
+/* ── DAY NOTES ── */
+function getNoteVal(dayIdx){
+  try{return localStorage.getItem('note_'+dayIdx)||'';}catch(e){return '';}
+}
+function toggleNote(dayIdx){
+  const ta=document.getElementById('noteTA_'+dayIdx);
+  if(!ta)return;
+  ta.classList.toggle('open');
+  if(ta.classList.contains('open'))ta.focus();
+  const btn=ta.previousElementSibling;
+  if(btn)btn.textContent=ta.classList.contains('open')?'📝 Cerrar nota':'📝 '+(ta.value?'Ver nota del dia':'Anadir nota del dia');
+}
+function saveNote(dayIdx){
+  const ta=document.getElementById('noteTA_'+dayIdx);
+  if(!ta)return;
+  try{localStorage.setItem('note_'+dayIdx,ta.value);}catch(e){}
+  const btn=ta.previousElementSibling;
+  if(btn)btn.textContent='📝 '+(ta.value?'Ver nota del dia':'Anadir nota del dia');
 }
 
 function switchTab(tab){
