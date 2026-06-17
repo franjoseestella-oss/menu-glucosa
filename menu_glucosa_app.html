@@ -126,6 +126,29 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
 .nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:10px 4px;cursor:pointer;font-size:10px;font-weight:600;color:#9ca3af;border:none;background:none}
 .nav-btn.active{color:#2d6a4f}
 .nav-btn span{font-size:22px}
+.steps-list{margin:4px 0 8px;display:flex;flex-direction:column;gap:5px}
+.step-item{display:flex;gap:8px;align-items:flex-start;font-size:12.5px;color:#374151;line-height:1.5}
+.step-num{width:20px;height:20px;border-radius:50%;background:#2d6a4f;color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.timer-wrap{display:flex;align-items:center;gap:8px;padding:8px 0 4px;border-top:1px solid #d1fae5;margin-top:4px}
+.timer-display{font-size:18px;font-weight:700;color:#2d6a4f;font-variant-numeric:tabular-nums;min-width:56px;letter-spacing:1px}
+.timer-btn{padding:5px 14px;border-radius:20px;border:none;cursor:pointer;font-size:12px;font-weight:700}
+.timer-start{background:#2d6a4f;color:#fff}
+.timer-stop{background:#fee2e2;color:#991b1b}
+.meal-tip-small{font-size:11.5px;color:#92400e;background:#fffbeb;border-left:3px solid #f59e0b;padding:6px 10px;border-radius:0 8px 8px 0;margin-top:6px;line-height:1.4}
+.wa-btn{display:flex;align-items:center;justify-content:center;gap:8px;background:#25d366;color:#fff;border:none;border-radius:14px;padding:10px;font-size:14px;font-weight:700;cursor:pointer;width:100%;margin-bottom:14px;letter-spacing:0.2px}
+.notif-card{background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:14px;margin-bottom:12px}
+.notif-head{font-size:14px;font-weight:700;color:#1b4332;margin-bottom:4px}
+.notif-sub{font-size:12px;color:#6b7280;margin-bottom:12px;line-height:1.4}
+.notif-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f3f4f6;font-size:13px;color:#374151}
+.notif-row:last-child{border-bottom:none}
+.notif-row-lbl{display:flex;align-items:center;gap:6px}
+.notif-time{border:1.5px solid #d1d5db;border-radius:8px;padding:5px 8px;font-size:13px;color:#111;background:#f9fafb;outline:none;width:80px}
+.notif-time:focus{border-color:#40916c}
+.notif-enable-btn{background:linear-gradient(135deg,#2d6a4f,#40916c);color:#fff;border:none;border-radius:14px;padding:12px;font-size:14px;font-weight:700;cursor:pointer;width:100%;margin-top:4px}
+.notif-status{font-size:12px;text-align:center;margin-top:10px;padding:8px;border-radius:10px}
+.ns-ok{background:#d1fae5;color:#065f46}
+.ns-off{background:#f3f4f6;color:#6b7280}
+.notif-tip{font-size:12px;color:#6b7280;background:#f9fafb;border-radius:10px;padding:10px;line-height:1.5;margin-top:6px}
 </style>
 </head>
 <body>
@@ -152,58 +175,59 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
     <button class="nav-btn" onclick="switchTab('compra')" id="nb-compra"><span>🛒</span>Compra</button>
     <button class="nav-btn" onclick="switchTab('normas')" id="nb-normas"><span>✅</span>Normas</button>
     <button class="nav-btn" onclick="switchTab('chat')" id="nb-chat"><span>💬</span>Consultar</button>
+    <button class="nav-btn" onclick="switchTab('alertas')" id="nb-alertas"><span>🔔</span>Alertas</button>
   </div>
 </div>
 <script>
 const days=[
   {name:'Lunes',short:'Lun',meals:[
-    {t:'d',lbl:'Desayuno',ic:'☕',ig:'low',time:'5 min',tip:'Anade una pizca de canela — reduce el pico de glucosa hasta un 20%. Sustituye la leche por bebida de avena sin azucar si lo prefieres.',items:['Avena en copos (40g) con leche entera','Canela y un punado de nueces','Cafe o te sin azucar']},
-    {t:'mm',lbl:'Media manana',ic:'🍎',ig:'low',time:'0 min',tip:'Manzana verde tiene menos azucar que la roja. Come siempre con la piel y acompanada de las nueces para bajar el IG.',items:['1 manzana pequena + 2 nueces']},
-    {t:'c',lbl:'Comida',ic:'🥣',ig:'low',time:'25 min',tip:'Come la ensalada primero, despues el pollo y al final las lentejas. Este orden puede reducir el pico de glucosa hasta un 40%.',items:['Ensalada de espinacas con tomate y pepino','Pechuga de pollo a la plancha','Lentejas estofadas (racion pequena)','Pan integral (1 rebanada)']},
-    {t:'me',lbl:'Merienda',ic:'🥛',ig:'low',time:'2 min',tip:'Las semillas de chia triplicaran su tamano en el yogur. Ricas en omega-3 y fibra, mantienen la glucosa estable horas.',items:['Yogur natural sin azucar con semillas de chia']},
-    {t:'ce',lbl:'Cena',ic:'🌙',ig:'low',time:'20 min',tip:'Merluza al horno 180°C durante 15 min con aceite, limon y ajo. Brocoli al vapor solo 4-5 min para conservar sus nutrientes.',items:['Merluza al horno con limon y ajo','Brocoli al vapor','Tortilla de 2 huevos']}
+    {t:'d',lbl:'Desayuno',ic:'☕',ig:'low',time:'5 min',tip:'Anade una pizca de canela — reduce el pico de glucosa hasta un 20%. Sustituye la leche por bebida de avena sin azucar si lo prefieres.',items:['Avena en copos (40g) con leche entera','Canela y un punado de nueces','Cafe o te sin azucar'],steps:['Calienta la leche sin hervir (2 min)','Añade la avena y remueve hasta espesar','Sirve con nueces picadas y una pizca de canela']},
+    {t:'mm',lbl:'Media manana',ic:'🍎',ig:'low',time:'0 min',tip:'Manzana verde tiene menos azucar que la roja. Come siempre con la piel y acompanada de las nueces para bajar el IG.',items:['1 manzana pequena + 2 nueces'],steps:['Lava la manzana y córtala en gajos con piel','Acompaña con las 2 nueces']},
+    {t:'c',lbl:'Comida',ic:'🥣',ig:'low',time:'25 min',tip:'Come la ensalada primero, despues el pollo y al final las lentejas. Este orden puede reducir el pico de glucosa hasta un 40%.',items:['Ensalada de espinacas con tomate y pepino','Pechuga de pollo a la plancha','Lentejas estofadas (racion pequena)','Pan integral (1 rebanada)'],steps:['Prepara la ensalada y aliña con aceite de oliva','Cocina el pollo a la plancha 4 min por cada lado','Calienta las lentejas estofadas a fuego medio','Come: ensalada → pollo → lentejas. Pan integral al final']},
+    {t:'me',lbl:'Merienda',ic:'🥛',ig:'low',time:'2 min',tip:'Las semillas de chia triplicaran su tamano en el yogur. Ricas en omega-3 y fibra, mantienen la glucosa estable horas.',items:['Yogur natural sin azucar con semillas de chia'],steps:['Vierte el yogur en un bol','Añade las semillas de chia y mezcla bien','Deja reposar 5 min para que espese']},
+    {t:'ce',lbl:'Cena',ic:'🌙',ig:'low',time:'20 min',tip:'Merluza al horno 180°C durante 15 min con aceite, limon y ajo. Brocoli al vapor solo 4-5 min para conservar sus nutrientes.',items:['Merluza al horno con limon y ajo','Brocoli al vapor','Tortilla de 2 huevos'],steps:['Precalienta el horno a 180°C','Coloca la merluza con aceite, limón y ajo picado','Hornea 15 min. En paralelo: brócoli al vapor 4-5 min','Bate 2 huevos y cuaja la tortilla a fuego bajo']}
   ]},
   {name:'Martes',short:'Mar',meals:[
-    {t:'d',lbl:'Desayuno',ic:'☕',ig:'low',time:'8 min',tip:'Huevos revueltos a fuego bajo para que queden cremosos. El tomate mejor crudo — conserva mas vitamina C y antioxidantes.',items:['2 huevos revueltos con tomate','Pan integral tostado (1 rebanada)','Cafe o te sin azucar']},
-    {t:'mm',lbl:'Media manana',ic:'🍎',ig:'low',time:'0 min',tip:'15 almendras = porcion ideal. Son ricas en magnesio, mineral fundamental para la sensibilidad a la insulina.',items:['Punado de almendras (15 unidades)']},
-    {t:'c',lbl:'Comida',ic:'🥣',ig:'med',time:'25 min',tip:'Arroz integral al dente tiene IG mas bajo. Sirve el salmon encima de la ensalada y deja el arroz para el final del plato.',items:['Ensalada de lechuga, pimiento y zanahoria','Salmon a la plancha','Arroz integral (3 cucharadas cocidas)']},
-    {t:'me',lbl:'Merienda',ic:'🥛',ig:'low',time:'1 min',tip:'Fruta + proteina estabiliza la glucosa durante 3-4 horas. La pera tiene IG~38, uno de los mas bajos entre las frutas.',items:['1 pera + queso fresco']},
-    {t:'ce',lbl:'Cena',ic:'🌙',ig:'low',time:'20 min',tip:'Crema de calabacin: sofrie con aceite, cubre de agua, tritura. Sin nata — igual de cremosa y mucho mas ligera.',items:['Crema de calabacin con aceite de oliva','Pavo a la plancha','Pepino con aceite y oregano']}
+    {t:'d',lbl:'Desayuno',ic:'☕',ig:'low',time:'8 min',tip:'Huevos revueltos a fuego bajo para que queden cremosos. El tomate mejor crudo — conserva mas vitamina C y antioxidantes.',items:['2 huevos revueltos con tomate','Pan integral tostado (1 rebanada)','Cafe o te sin azucar'],steps:['Bate 2 huevos con sal','Pica el tomate en dados pequeños','Cocina los huevos a fuego muy bajo removiendo hasta que cuajen cremosos','Tuesta el pan. Aliña el tomate con aceite']},
+    {t:'mm',lbl:'Media manana',ic:'🍎',ig:'low',time:'0 min',tip:'15 almendras = porcion ideal. Son ricas en magnesio, mineral fundamental para la sensibilidad a la insulina.',items:['Punado de almendras (15 unidades)'],steps:['Cuenta 15 almendras','Toma con un vaso de agua']},
+    {t:'c',lbl:'Comida',ic:'🥣',ig:'med',time:'25 min',tip:'Arroz integral al dente tiene IG mas bajo. Sirve el salmon encima de la ensalada y deja el arroz para el final del plato.',items:['Ensalada de lechuga, pimiento y zanahoria','Salmon a la plancha','Arroz integral (3 cucharadas cocidas)'],steps:['Pon el arroz integral a cocer 25 min con el doble de agua','Prepara la ensalada con lechuga, pimiento y zanahoria rallada','Cocina el salmón a la plancha 3 min por lado','Come: ensalada → salmón → arroz al final']},
+    {t:'me',lbl:'Merienda',ic:'🥛',ig:'low',time:'1 min',tip:'Fruta + proteina estabiliza la glucosa durante 3-4 horas. La pera tiene IG~38, uno de los mas bajos entre las frutas.',items:['1 pera + queso fresco'],steps:['Corta la pera en gajos con piel','Acompaña con el queso fresco cortado en dados']},
+    {t:'ce',lbl:'Cena',ic:'🌙',ig:'low',time:'20 min',tip:'Crema de calabacin: sofrie con aceite, cubre de agua, tritura. Sin nata — igual de cremosa y mucho mas ligera.',items:['Crema de calabacin con aceite de oliva','Pavo a la plancha','Pepino con aceite y oregano'],steps:['Sofríe el calabacín con aceite 5 min','Cubre de agua y cuece 10 min','Tritura con batidora hasta textura cremosa','Cocina el pavo a la plancha 3 min por lado','Aliña el pepino en rodajas con aceite y orégano']}
   ]},
   {name:'Miercoles',short:'Mie',meals:[
-    {t:'d',lbl:'Desayuno',ic:'☕',ig:'low',time:'3 min',tip:'Arandanos tienen IG~25 y son los mas ricos en antioxidantes. Con uso regular mejoran la sensibilidad a la insulina.',items:['Yogur natural con avena (30g) y arandanos','Canela al gusto','Cafe o te sin azucar']},
-    {t:'mm',lbl:'Media manana',ic:'🍎',ig:'low',time:'2 min',tip:'Zanahoria cruda IG~35, mucho menor que cocida IG~85. Siempre cruda o al dente para conservar su bajo IG.',items:['Palitos de zanahoria o pepino']},
-    {t:'c',lbl:'Comida',ic:'🥣',ig:'low',time:'20 min',tip:'Garbanzos IG~33, de los mejores carbohidratos. Come primero el gazpacho y las espinacas antes de la ternera y los garbanzos.',items:['Gazpacho o ensalada mixta','Ternera magra a la plancha','Garbanzos con espinacas (racion pequena)']},
-    {t:'me',lbl:'Merienda',ic:'🥛',ig:'low',time:'0 min',tip:'Kiwi IG~50, rico en vitamina C y fibra. Con nueces (omega-3) es una combinacion antiinflamatoria perfecta.',items:['2 nueces + 1 kiwi']},
-    {t:'ce',lbl:'Cena',ic:'🌙',ig:'low',time:'12 min',tip:'Champinones tienen fibra, proteina vegetal y practicamente 0 calorias. Son perfectos para saciar sin afectar la glucosa.',items:['Revuelto de huevos con champinones','Esparragos a la plancha','Ensalada de tomate']}
+    {t:'d',lbl:'Desayuno',ic:'☕',ig:'low',time:'3 min',tip:'Arandanos tienen IG~25 y son los mas ricos en antioxidantes. Con uso regular mejoran la sensibilidad a la insulina.',items:['Yogur natural con avena (30g) y arandanos','Canela al gusto','Cafe o te sin azucar'],steps:['Vierte el yogur en un bol','Añade la avena en crudo y mezcla','Pon los arándanos encima y espolvorea canela']},
+    {t:'mm',lbl:'Media manana',ic:'🍎',ig:'low',time:'2 min',tip:'Zanahoria cruda IG~35, mucho menor que cocida IG~85. Siempre cruda o al dente para conservar su bajo IG.',items:['Palitos de zanahoria o pepino'],steps:['Pela la zanahoria y córtala en bastones','O corta el pepino en rodajas gruesas']},
+    {t:'c',lbl:'Comida',ic:'🥣',ig:'low',time:'20 min',tip:'Garbanzos IG~33, de los mejores carbohidratos. Come primero el gazpacho y las espinacas antes de la ternera y los garbanzos.',items:['Gazpacho o ensalada mixta','Ternera magra a la plancha','Garbanzos con espinacas (racion pequena)'],steps:['Prepara el gazpacho frío o la ensalada','Cocina la ternera a la plancha 3-4 min por lado con sal','Calienta los garbanzos con las espinacas y un chorro de aceite','Come: gazpacho → ternera → garbanzos']},
+    {t:'me',lbl:'Merienda',ic:'🥛',ig:'low',time:'0 min',tip:'Kiwi IG~50, rico en vitamina C y fibra. Con nueces (omega-3) es una combinacion antiinflamatoria perfecta.',items:['2 nueces + 1 kiwi'],steps:['Pela el kiwi y córtalo en rodajas','Acompaña con las 2 nueces']},
+    {t:'ce',lbl:'Cena',ic:'🌙',ig:'low',time:'12 min',tip:'Champinones tienen fibra, proteina vegetal y practicamente 0 calorias. Son perfectos para saciar sin afectar la glucosa.',items:['Revuelto de huevos con champinones','Esparragos a la plancha','Ensalada de tomate'],steps:['Saltea los champiñones con aceite y sal 5 min','Bate 2 huevos y añade a los champiñones a fuego bajo','Remueve suavemente hasta cuajar','Asa los espárragos a la plancha 4 min','Aliña el tomate en rodajas con aceite y sal']}
   ]},
   {name:'Jueves',short:'Jue',meals:[
-    {t:'d',lbl:'Desayuno',ic:'☕',ig:'med',time:'5 min',tip:'Usa SOLO medio platano VERDE. El platano maduro (amarillo) tiene IG mucho mas alto. La avena y la canela compensan el efecto.',items:['Avena (40g) con leche','Medio platano verde pequeno','Canela — Cafe o te sin azucar']},
-    {t:'mm',lbl:'Media manana',ic:'🍎',ig:'low',time:'0 min',tip:'Varia entre nueces y almendras a lo largo de la semana: las nueces aportan omega-3, las almendras magnesio.',items:['Punado de nueces o almendras']},
-    {t:'c',lbl:'Comida',ic:'🥣',ig:'low',time:'25 min',tip:'Quinoa IG~53 con todos los aminoacidos esenciales. Cocinar 15 min y dejar reposar 5 min tapado para que quede perfecta.',items:['Ensalada de rugula con tomate cherry','Pollo al horno con hierbas','Quinoa (3-4 cucharadas cocidas)']},
-    {t:'me',lbl:'Merienda',ic:'🥛',ig:'low',time:'1 min',tip:'Anade semillas de chia o lino al yogur para aumentar la fibra y el omega-3. Muy saciante y sin efecto en la glucosa.',items:['Yogur natural sin azucar']},
-    {t:'ce',lbl:'Cena',ic:'🌙',ig:'low',time:'20 min',tip:'Dorada al horno 180°C, 20 min. Judias verdes salteadas con ajo en sarten, solo 5 min para que queden al dente.',items:['Dorada o lubina al horno','Judias verdes salteadas con ajo','Huevo cocido']}
+    {t:'d',lbl:'Desayuno',ic:'☕',ig:'med',time:'5 min',tip:'Usa SOLO medio platano VERDE. El platano maduro (amarillo) tiene IG mucho mas alto. La avena y la canela compensan el efecto.',items:['Avena (40g) con leche','Medio platano verde pequeno','Canela — Cafe o te sin azucar'],steps:['Calienta la leche','Añade la avena y remueve 2 min','Agrega el medio plátano verde en rodajas finas','Espolvorea canela generosamente']},
+    {t:'mm',lbl:'Media manana',ic:'🍎',ig:'low',time:'0 min',tip:'Varia entre nueces y almendras a lo largo de la semana: las nueces aportan omega-3, las almendras magnesio.',items:['Punado de nueces o almendras'],steps:['Pesa un puñado (25-30g) de nueces o almendras','Toma con un vaso de agua']},
+    {t:'c',lbl:'Comida',ic:'🥣',ig:'low',time:'25 min',tip:'Quinoa IG~53 con todos los aminoacidos esenciales. Cocinar 15 min y dejar reposar 5 min tapado para que quede perfecta.',items:['Ensalada de rugula con tomate cherry','Pollo al horno con hierbas','Quinoa (3-4 cucharadas cocidas)'],steps:['Lava la quinoa y cuece en doble de agua 15 min, tapa y deja reposar 5 min','Prepara la ensalada de rúcula con tomate cherry y aceite','Hornea el pollo con hierbas a 180°C 20 min','Come: ensalada → pollo → quinoa']},
+    {t:'me',lbl:'Merienda',ic:'🥛',ig:'low',time:'1 min',tip:'Anade semillas de chia o lino al yogur para aumentar la fibra y el omega-3. Muy saciante y sin efecto en la glucosa.',items:['Yogur natural sin azucar'],steps:['Vierte el yogur en un bol','Añade semillas de chia o lino si tienes','Mezcla bien']},
+    {t:'ce',lbl:'Cena',ic:'🌙',ig:'low',time:'20 min',tip:'Dorada al horno 180°C, 20 min. Judias verdes salteadas con ajo en sarten, solo 5 min para que queden al dente.',items:['Dorada o lubina al horno','Judias verdes salteadas con ajo','Huevo cocido'],steps:['Precalienta el horno a 180°C','Coloca la dorada con aceite, sal y limón','Hornea 20 min','Saltea las judías verdes con ajo en sartén 5 min a fuego vivo','Cuece el huevo 10 min en agua hirviendo']}
   ]},
   {name:'Viernes',short:'Vie',meals:[
-    {t:'d',lbl:'Desayuno',ic:'☕',ig:'low',time:'10 min',tip:'Aguacate IG~15. Su grasa monoinsaturada ralentiza la absorcion del desayuno entero y reduce el pico de glucosa.',items:['2 huevos a la plancha o cocidos','Aguacate con tomate','Cafe o te sin azucar']},
-    {t:'mm',lbl:'Media manana',ic:'🍎',ig:'low',time:'0 min',tip:'Manzana con nueces — fibra + grasa saludable = glucosa estable durante 3 horas. Combinacion ideal para media manana.',items:['1 manzana + 2 nueces']},
-    {t:'c',lbl:'Comida',ic:'🥣',ig:'low',time:'20 min',tip:'Come la sopa de verduras primero siempre. Atun al natural es proteina de alta calidad sin carbohidratos ni grasa.',items:['Sopa de verduras','Atun o bacalao a la plancha','Lentejas (racion pequena)','Pan integral (1 rebanada)']},
-    {t:'me',lbl:'Merienda',ic:'🥛',ig:'low',time:'1 min',tip:'Queso fresco IG~0, rico en calcio y proteina. La canela encima aporta sabor dulce y reduce el apetito de azucar.',items:['Queso fresco con un poco de canela']},
-    {t:'ce',lbl:'Cena',ic:'🌙',ig:'low',time:'10 min',tip:'Tortilla esponjosa a fuego bajo. Champinones dan sabor umami sin calorias. Espinacas frescas con aceite de oliva virgen.',items:['Tortilla francesa de 2 huevos con champinones','Ensalada de espinacas con aceite de oliva']}
+    {t:'d',lbl:'Desayuno',ic:'☕',ig:'low',time:'10 min',tip:'Aguacate IG~15. Su grasa monoinsaturada ralentiza la absorcion del desayuno entero y reduce el pico de glucosa.',items:['2 huevos a la plancha o cocidos','Aguacate con tomate','Cafe o te sin azucar'],steps:['Cocina los huevos a la plancha o cuécelos 10 min','Corta el aguacate y retira el hueso','Corta el tomate en rodajas','Sazona todo con sal, pimienta y un hilo de aceite de oliva']},
+    {t:'mm',lbl:'Media manana',ic:'🍎',ig:'low',time:'0 min',tip:'Manzana con nueces — fibra + grasa saludable = glucosa estable durante 3 horas. Combinacion ideal para media manana.',items:['1 manzana + 2 nueces'],steps:['Lava la manzana y córtala en gajos con piel','Acompaña con las 2 nueces']},
+    {t:'c',lbl:'Comida',ic:'🥣',ig:'low',time:'20 min',tip:'Come la sopa de verduras primero siempre. Atun al natural es proteina de alta calidad sin carbohidratos ni grasa.',items:['Sopa de verduras','Atun o bacalao a la plancha','Lentejas (racion pequena)','Pan integral (1 rebanada)'],steps:['Calienta la sopa de verduras a fuego medio','Escurre el atún al natural y sírvelo en un plato','Calienta las lentejas con un chorro de aceite','Come: sopa → atún → lentejas. Pan al final']},
+    {t:'me',lbl:'Merienda',ic:'🥛',ig:'low',time:'1 min',tip:'Queso fresco IG~0, rico en calcio y proteina. La canela encima aporta sabor dulce y reduce el apetito de azucar.',items:['Queso fresco con un poco de canela'],steps:['Coloca el queso fresco en un plato','Espolvorea canela por encima','Acompaña con un vaso de agua o infusión']},
+    {t:'ce',lbl:'Cena',ic:'🌙',ig:'low',time:'10 min',tip:'Tortilla esponjosa a fuego bajo. Champinones dan sabor umami sin calorias. Espinacas frescas con aceite de oliva virgen.',items:['Tortilla francesa de 2 huevos con champinones','Ensalada de espinacas con aceite de oliva'],steps:['Saltea los champiñones en sartén con aceite 4 min','Bate 2 huevos y vierte sobre los champiñones','Cocina a fuego bajo y dobla la tortilla cuando cuaje','Aliña las espinacas frescas con aceite de oliva y limón']}
   ]},
   {name:'Sabado',short:'Sab',meals:[
-    {t:'d',lbl:'Desayuno',ic:'☕',ig:'low',time:'5 min',tip:'Fresas IG~40 y muy ricas en vitamina C. Con avena y nueces es uno de los desayunos mas potentes para controlar la glucosa.',items:['Avena con leche y fresas frescas','Nueces encima — Cafe o te sin azucar']},
-    {t:'mm',lbl:'Media manana',ic:'🍎',ig:'low',time:'0 min',tip:'Frutos rojos tienen solo 1-3g de azucar por 100g y estan cargados de antioxidantes. Perfectos sin restriccion.',items:['Punado de arandanos o fresas']},
-    {t:'c',lbl:'Comida',ic:'🥣',ig:'med',time:'35 min',tip:'Boniato asado IG~44 vs patata hervida IG~78. Porcion maxima: la mitad de un boniato pequeno, siempre al final del plato.',items:['Ensalada completa con huevo cocido','Pollo asado','Boniato pequeno asado']},
-    {t:'me',lbl:'Merienda',ic:'🥛',ig:'low',time:'2 min',tip:'Kiwi tiene mas vitamina C que la naranja y fibra que ayuda al transito intestinal. Perfecto con yogur natural.',items:['Yogur natural + 1 kiwi']},
-    {t:'ce',lbl:'Cena',ic:'🌙',ig:'low',time:'15 min',tip:'Gambas a la plancha 2 min por lado con ajo y limon. Muy ligeras y altas en proteina. Brocoli al vapor solo 4 min.',items:['Gambas a la plancha con ajo y limon','Brocoli o coliflor al vapor','Revuelto de verduras']}
+    {t:'d',lbl:'Desayuno',ic:'☕',ig:'low',time:'5 min',tip:'Fresas IG~40 y muy ricas en vitamina C. Con avena y nueces es uno de los desayunos mas potentes para controlar la glucosa.',items:['Avena con leche y fresas frescas','Nueces encima — Cafe o te sin azucar'],steps:['Calienta la leche','Añade la avena y remueve 2 min','Lava y corta las fresas en trozos','Pon las fresas y las nueces encima de la avena']},
+    {t:'mm',lbl:'Media manana',ic:'🍎',ig:'low',time:'0 min',tip:'Frutos rojos tienen solo 1-3g de azucar por 100g y estan cargados de antioxidantes. Perfectos sin restriccion.',items:['Punado de arandanos o fresas'],steps:['Lava un puñado de arándanos o fresas','Sirve en un bol pequeño']},
+    {t:'c',lbl:'Comida',ic:'🥣',ig:'med',time:'35 min',tip:'Boniato asado IG~44 vs patata hervida IG~78. Porcion maxima: la mitad de un boniato pequeno, siempre al final del plato.',items:['Ensalada completa con huevo cocido','Pollo asado','Boniato pequeno asado'],steps:['Precalienta el horno a 200°C','Corta el boniato en cuñas y hornea 25 min con aceite y sal','Hornea el pollo con especias al mismo tiempo','Prepara la ensalada con huevo cocido','Come: ensalada → pollo → boniato al final']},
+    {t:'me',lbl:'Merienda',ic:'🥛',ig:'low',time:'2 min',tip:'Kiwi tiene mas vitamina C que la naranja y fibra que ayuda al transito intestinal. Perfecto con yogur natural.',items:['Yogur natural + 1 kiwi'],steps:['Pela el kiwi y córtalo en rodajas','Mezcla con el yogur o sirve aparte']},
+    {t:'ce',lbl:'Cena',ic:'🌙',ig:'low',time:'15 min',tip:'Gambas a la plancha 2 min por lado con ajo y limon. Muy ligeras y altas en proteina. Brocoli al vapor solo 4 min.',items:['Gambas a la plancha con ajo y limon','Brocoli o coliflor al vapor','Revuelto de verduras'],steps:['Calienta una sartén con ajo picado y aceite','Añade las gambas 2 min por lado a fuego vivo con limón','Cuece el brócoli al vapor 4-5 min','Saltea las verduras con aceite y sal']}
   ]},
   {name:'Domingo',short:'Dom',meals:[
-    {t:'d',lbl:'Desayuno',ic:'☕',ig:'low',time:'10 min',tip:'Tortilla sin pan ni carbohidratos — empezar el domingo con proteina y grasa es ideal para el metabolismo del dia.',items:['Tortilla de 2 huevos con tomate y queso fresco','Cafe o te sin azucar']},
-    {t:'mm',lbl:'Media manana',ic:'🍎',ig:'low',time:'0 min',tip:'El domingo puedes tomar una fruta un poco mas generosa si has hecho ejercicio. Come siempre la fruta con piel.',items:['1 pera o manzana + almendras']},
-    {t:'c',lbl:'Comida',ic:'🥣',ig:'low',time:'25 min',tip:'Crema de verduras sin nata — tritura con batidora y un chorro de aceite de oliva. Cremosa, ligera y muy nutritiva.',items:['Crema de verduras (calabaza, zanahoria, puerro)','Merluza o salmon al horno','Ensalada de garbanzos con pimiento']},
-    {t:'me',lbl:'Merienda',ic:'🥛',ig:'low',time:'2 min',tip:'Mezcla de semillas (chia, lino, calabaza) — perfectas para la microbiota y la sensibilidad a la insulina a largo plazo.',items:['Yogur natural con semillas']},
-    {t:'ce',lbl:'Cena',ic:'🌙',ig:'low',time:'15 min',tip:'Cena ligera sin carbohidrato — ideal para una buena glucosa en ayunas el lunes. Pavo + verdura = combinacion perfecta.',items:['Pavo o pollo a la plancha','Esparragos o judias verdes','Ensalada de tomate']}
+    {t:'d',lbl:'Desayuno',ic:'☕',ig:'low',time:'10 min',tip:'Tortilla sin pan ni carbohidratos — empezar el domingo con proteina y grasa es ideal para el metabolismo del dia.',items:['Tortilla de 2 huevos con tomate y queso fresco','Cafe o te sin azucar'],steps:['Corta el tomate en dados','Bate 2 huevos con el queso fresco desmigado','Cuaja en sartén antiadherente a fuego muy bajo','Dobla la tortilla cuando los bordes estén secos']},
+    {t:'mm',lbl:'Media manana',ic:'🍎',ig:'low',time:'0 min',tip:'El domingo puedes tomar una fruta un poco mas generosa si has hecho ejercicio. Come siempre la fruta con piel.',items:['1 pera o manzana + almendras'],steps:['Lava y corta la fruta en gajos con piel','Acompaña con las almendras']},
+    {t:'c',lbl:'Comida',ic:'🥣',ig:'low',time:'25 min',tip:'Crema de verduras sin nata — tritura con batidora y un chorro de aceite de oliva. Cremosa, ligera y muy nutritiva.',items:['Crema de verduras (calabaza, zanahoria, puerro)','Merluza o salmon al horno','Ensalada de garbanzos con pimiento'],steps:['Sofríe calabaza, zanahoria y puerro con aceite 5 min','Cubre de agua y cuece 20 min, tritura con batidora','Hornea la merluza a 180°C 15 min','Prepara la ensalada de garbanzos con pimiento y aceite']},
+    {t:'me',lbl:'Merienda',ic:'🥛',ig:'low',time:'2 min',tip:'Mezcla de semillas (chia, lino, calabaza) — perfectas para la microbiota y la sensibilidad a la insulina a largo plazo.',items:['Yogur natural con semillas'],steps:['Vierte el yogur en un bol','Añade una cucharada de semillas mezcladas','Mezcla bien']},
+    {t:'ce',lbl:'Cena',ic:'🌙',ig:'low',time:'15 min',tip:'Cena ligera sin carbohidrato — ideal para una buena glucosa en ayunas el lunes. Pavo + verdura = combinacion perfecta.',items:['Pavo o pollo a la plancha','Esparragos o judias verdes','Ensalada de tomate'],steps:['Cocina el pavo a la plancha 3-4 min por lado','Asa los espárragos o judías verdes a la plancha 4 min','Aliña el tomate con aceite, sal y orégano']}
   ]}
 ];
 const shopping=[
@@ -495,7 +519,16 @@ function renderDias(){
         +'</div>'
       +'</div>'
       +'<div class="meal-body">'+m.items.join('<div class="arr">↓</div>')+'</div>'
-      +'<div class="meal-extra" id="extra_'+uid+'"><strong>Consejo:</strong> '+m.tip+'</div>'
+      +'<div class="meal-extra" id="extra_'+uid+'">'
+      +'<div class="steps-list">'
+      +m.steps.map((s,i)=>'<div class="step-item"><div class="step-num">'+(i+1)+'</div><span>'+s+'</span></div>').join('')
+      +'</div>'
+      +'<div class="timer-wrap">'
+      +'<span class="timer-display" id="timer_'+uid+'">00:00</span>'
+      +'<button class="timer-btn timer-start" id="timerbtn_'+uid+'" onclick="toggleTimer(\''+uid+'\')">▶ Timer</button>'
+      +'</div>'
+      +'<div class="meal-tip-small">💡 '+m.tip+'</div>'
+      +'</div>'
     +'</div>';
   }).join('');
   const noteVal=getNoteVal(currentDay);
@@ -513,6 +546,7 @@ function renderCompra(){
   const total=shopping.reduce((s,c)=>s+c.items.length,0);
   const done=Object.values(shopState).filter(Boolean).length;
   const pct=total?Math.round(done/total*100):0;
+  const waBtn='<button class="wa-btn" onclick="shareWhatsApp()"><span>📲</span> Compartir en WhatsApp</button>';
   const progress='<div class="shop-progress-wrap">'
     +'<div class="shop-progress-label"><span><strong>Lista de la compra</strong> — semana completa</span>'
     +'<span class="shop-clear-btn" onclick="clearShop()">'+(done>0?'Limpiar marcados':'')+'</span></div>'
@@ -530,7 +564,7 @@ function renderCompra(){
         +'</div>';
     }).join('')+'</div>'
     +'</div>').join('');
-  document.getElementById('mainContent').innerHTML=progress+cats;
+  document.getElementById('mainContent').innerHTML=waBtn+progress+cats;
 }
 function renderNormas(){
   document.getElementById('mainContent').innerHTML=
@@ -753,13 +787,122 @@ function saveNote(dayIdx){
   if(btn)btn.textContent='📝 '+(ta.value?'Ver nota del dia':'Anadir nota del dia');
 }
 
+const timers={};
+function toggleTimer(uid){
+  if(timers[uid]){
+    clearInterval(timers[uid].iv);
+    delete timers[uid];
+    const btn=document.getElementById('timerbtn_'+uid);
+    if(btn){btn.textContent='▶ Timer';btn.className='timer-btn timer-start';}
+  } else {
+    timers[uid]={start:Date.now(),iv:null};
+    const btn=document.getElementById('timerbtn_'+uid);
+    if(btn){btn.textContent='⏹ Parar';btn.className='timer-btn timer-stop';}
+    timers[uid].iv=setInterval(()=>{
+      const el=document.getElementById('timer_'+uid);
+      if(!el){clearInterval(timers[uid].iv);delete timers[uid];return;}
+      const s=Math.floor((Date.now()-timers[uid].start)/1000);
+      el.textContent=String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');
+    },500);
+  }
+}
+function shareWhatsApp(){
+  let txt='🥗 *Lista de la compra — Glucosa 110*\n\n';
+  shopping.forEach(cat=>{
+    txt+='*'+cat.ic+' '+cat.name+'*\n';
+    cat.items.forEach(item=>{
+      const idx=shopping.indexOf(cat);
+      const ii=cat.items.indexOf(item);
+      const key=idx+'_'+ii;
+      txt+=(shopState[key]?'✅':'▫️')+' '+item+'\n';
+    });
+    txt+='\n';
+  });
+  const url='https://wa.me/?text='+encodeURIComponent(txt);
+  window.open(url,'_blank');
+}
+const DEFAULT_NOTIF_TIMES={d:'08:00',mm:'11:00',c:'14:00',me:'17:00',ce:'21:00'};
+const MEAL_NAMES={d:'Desayuno 🌅',mm:'Media mañana 🍎',c:'Comida 🥣',me:'Merienda 🥛',ce:'Cena 🌙'};
+let notifTimeouts=[];
+
+function loadNotifTimes(){
+  try{const s=localStorage.getItem('notif_times');return s?JSON.parse(s):{...DEFAULT_NOTIF_TIMES};}catch(e){return {...DEFAULT_NOTIF_TIMES};}
+}
+function saveNotifTimes(times){
+  try{localStorage.setItem('notif_times',JSON.stringify(times));}catch(e){}
+}
+function clearNotifTimeouts(){
+  notifTimeouts.forEach(id=>clearTimeout(id));
+  notifTimeouts=[];
+}
+function scheduleNotifs(times){
+  clearNotifTimeouts();
+  const now=new Date();
+  Object.entries(times).forEach(([type,timeStr])=>{
+    const [h,m]=timeStr.split(':').map(Number);
+    const target=new Date(now);
+    target.setHours(h,m,0,0);
+    let ms=target-now;
+    if(ms<=0)ms+=86400000; // mañana
+    const id=setTimeout(()=>{
+      if(Notification.permission==='granted'){
+        const dayName=days[new Date().getDay()===0?6:new Date().getDay()-1]?.name||'';
+        const meal=days.find(d=>d.name===dayName||true)?.meals.find(m2=>m2.t===type);
+        const body=meal?meal.items.slice(0,2).join(', ')+'...':'Hora de comer bien 💚';
+        new Notification('Menu Glucosa — '+MEAL_NAMES[type],{body,icon:'/icons/icon-192.png',badge:'/icons/icon-192.png',tag:'glucosa-'+type});
+      }
+    },ms);
+    notifTimeouts.push(id);
+  });
+}
+function renderAlertas(){
+  const times=loadNotifTimes();
+  const perm=('Notification' in window)?Notification.permission:'unsupported';
+  const permOk=perm==='granted';
+  const rows=Object.entries(MEAL_NAMES).map(([type,label])=>`
+    <div class="notif-row">
+      <div class="notif-row-lbl">${label}</div>
+      <input class="notif-time" type="time" id="nt_${type}" value="${times[type]||DEFAULT_NOTIF_TIMES[type]}">
+    </div>`).join('');
+  const statusHtml=permOk
+    ?'<div class="notif-status ns-ok">✅ Notificaciones activas — recibirás recordatorios de cada comida</div>'
+    :'<div class="notif-status ns-off">🔕 Notificaciones desactivadas — pulsa el botón para activarlas</div>';
+  document.getElementById('mainContent').innerHTML=`
+    <div class="notif-card">
+      <div class="notif-head">🔔 Recordatorios de comidas</div>
+      <div class="notif-sub">Elige la hora de cada comida y activa los recordatorios. Aparecerán como notificaciones del móvil.</div>
+      ${rows}
+      <button class="notif-enable-btn" onclick="activateNotifs()">${permOk?'💾 Guardar horarios':'🔔 Activar recordatorios'}</button>
+      ${statusHtml}
+    </div>
+    <div class="notif-tip">⚠️ Los recordatorios funcionan mientras el navegador esté abierto en segundo plano. En Android con la PWA instalada funcionan mejor.</div>`;
+}
+function activateNotifs(){
+  if(!('Notification' in window)){alert('Tu navegador no soporta notificaciones.');return;}
+  const times={};
+  Object.keys(MEAL_NAMES).forEach(type=>{
+    const el=document.getElementById('nt_'+type);
+    if(el)times[type]=el.value;
+  });
+  saveNotifTimes(times);
+  if(Notification.permission==='granted'){
+    scheduleNotifs(times);
+    renderAlertas();
+  } else {
+    Notification.requestPermission().then(perm=>{
+      if(perm==='granted'){scheduleNotifs(times);}
+      renderAlertas();
+    });
+  }
+}
 function switchTab(tab){
-  ['dias','compra','normas','chat'].forEach(t=>{document.getElementById('nb-'+t).classList.toggle('active',t===tab)});
+  ['dias','compra','normas','chat','alertas'].forEach(t=>{document.getElementById('nb-'+t).classList.toggle('active',t===tab)});
   document.getElementById('dayTabs').style.display=tab==='dias'?'flex':'none';
   document.getElementById('chatInputWrap').style.display=tab==='chat'?'block':'none';
   if(tab==='dias')renderDias();
   else if(tab==='compra')renderCompra();
   else if(tab==='normas')renderNormas();
+  else if(tab==='alertas')renderAlertas();
   else renderChat();
 }
 buildDayTabs();
