@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Menu Semanal - Glucosa 110</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;background:#f0f4f0;display:flex;justify-content:center;align-items:flex-start;min-height:100vh;padding:16px 0}
+.app{width:100%;max-width:420px;background:#fff;border-radius:24px;overflow:hidden;display:flex;flex-direction:column;min-height:100vh;max-height:100vh;box-shadow:0 4px 24px rgba(0,0,0,0.10)}
+@media(max-width:440px){body{padding:0}.app{border-radius:0;min-height:100dvh;max-height:100dvh}}
+.topbar{background:linear-gradient(135deg,#2d6a4f,#40916c);padding:18px 20px 14px;color:#fff;flex-shrink:0}
+.topbar-title{font-size:19px;font-weight:700;letter-spacing:-0.3px}
+.topbar-sub{font-size:12px;opacity:0.8;margin-top:3px}
+.day-tabs{display:flex;overflow-x:auto;background:#1b4332;padding:0 8px;gap:2px;scrollbar-width:none;flex-shrink:0}
+.day-tabs::-webkit-scrollbar{display:none}
+.day-tab{flex-shrink:0;padding:9px 13px;font-size:12px;font-weight:600;color:rgba(255,255,255,0.55);cursor:pointer;border-bottom:2.5px solid transparent;white-space:nowrap;transition:color 0.15s}
+.day-tab.active{color:#fff;border-bottom-color:#74c69d}
+.content{flex:1;overflow-y:auto;padding:14px;-webkit-overflow-scrolling:touch}
+.meal-card{background:#fff;border:1px solid #e8f5e9;border-radius:14px;margin-bottom:10px;overflow:hidden;box-shadow:0 1px 4px rgba(45,106,79,0.06)}
+.meal-header{display:flex;align-items:center;gap:10px;padding:10px 14px;background:#f8fdf9;border-bottom:1px solid #e8f5e9}
+.meal-icon{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.mi-d{background:#d8f3dc}.mi-mm{background:#fff3cd}.mi-c{background:#dbeafe}.mi-me{background:#ede9fe}.mi-ce{background:#fce7f3}
+.meal-lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:#40916c}
+.meal-body{padding:10px 14px;font-size:13.5px;color:#2d3748;line-height:1.6}
+.arr{font-size:10px;color:#aaa;margin:2px 0;text-align:center}
+.tip-box{background:#fffbeb;border-left:3px solid #f59e0b;border-radius:0 10px 10px 0;padding:10px 12px;margin-bottom:12px;font-size:12.5px;color:#92400e;line-height:1.5}
+.section-title{font-size:11px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:0.7px;margin-bottom:10px}
+.shop-cat{margin-bottom:14px}
+.shop-cat-name{font-size:13px;font-weight:600;color:#2d6a4f;margin-bottom:6px}
+.shop-items{display:flex;flex-wrap:wrap;gap:5px}
+.shop-chip{font-size:12px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:20px;padding:3px 10px;color:#166534}
+.rule-item{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid #f3f4f6;font-size:13px;color:#374151}
+.rule-item:last-child{border-bottom:none}
+.rule-dot{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;margin-top:1px;font-weight:700}
+.rd-yes{background:#d1fae5;color:#065f46}.rd-no{background:#fee2e2;color:#991b1b}
+.rules-card{background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:4px 14px}
+.specialist-badge{display:flex;align-items:center;gap:10px;background:linear-gradient(135deg,#d8f3dc,#b7e4c7);border-radius:14px;padding:12px 14px;margin-bottom:14px}
+.badge-avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#2d6a4f,#40916c);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.badge-name{font-weight:700;color:#1b4332;font-size:14px}
+.badge-role{color:#2d6a4f;font-size:12px;margin-top:2px}
+.quick-questions{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.qq{font-size:12px;background:#f0fdf4;border:1px solid #86efac;border-radius:16px;padding:6px 12px;cursor:pointer;color:#166534;font-weight:500;transition:background 0.15s;text-align:left}
+.qq:active{background:#dcfce7}
+.chat-area{display:flex;flex-direction:column;gap:10px;padding-bottom:8px}
+.chat-bubble{max-width:85%;padding:10px 13px;border-radius:16px;font-size:13.5px;line-height:1.55}
+.bubble-user{background:linear-gradient(135deg,#2d6a4f,#40916c);color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+.bubble-bot{background:#f3f4f6;color:#111827;align-self:flex-start;border-bottom-left-radius:4px;border:1px solid #e5e7eb}
+.bubble-label{font-size:10px;font-weight:600;color:#6b7280;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.5px}
+.chat-input-wrap{display:flex;gap:8px;padding:10px 14px 14px;border-top:1px solid #f3f4f6;background:#fff;flex-shrink:0}
+.chat-input-wrap input{flex:1;border:1.5px solid #d1d5db;border-radius:22px;padding:9px 15px;font-size:14px;background:#f9fafb;color:#111;outline:none;-webkit-appearance:none}
+.chat-input-wrap input:focus{border-color:#40916c;background:#fff}
+.chat-send{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#2d6a4f,#40916c);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px}
+.bottom-nav{display:flex;border-top:1px solid #e5e7eb;background:#fff;flex-shrink:0;padding-bottom:env(safe-area-inset-bottom)}
+.nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:10px 4px;cursor:pointer;font-size:10px;font-weight:600;color:#9ca3af;border:none;background:none}
+.nav-btn.active{color:#2d6a4f}
+.nav-btn span{font-size:22px}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="topbar">
+    <div class="topbar-title">Menu Semanal</div>
+    <div class="topbar-sub">Glucosa 110 mg/dL — bajo indice glucemico</div>
+  </div>
+  <div class="day-tabs" id="dayTabs" style="display:flex"></div>
+  <div class="content" id="mainContent"></div>
+  <div id="chatInputWrap" style="display:none">
+    <div class="chat-input-wrap">
+      <input type="text" id="chatInput" placeholder="Escribe tu pregunta..." autocomplete="off">
+      <button class="chat-send" onclick="sendQ()" aria-label="Enviar">&#10148;</button>
+    </div>
+  </div>
+  <div class="bottom-nav">
+    <button class="nav-btn active" onclick="switchTab('dias')" id="nb-dias"><span>📅</span>Dias</button>
+    <button class="nav-btn" onclick="switchTab('compra')" id="nb-compra"><span>🛒</span>Compra</button>
+    <button class="nav-btn" onclick="switchTab('normas')" id="nb-normas"><span>✅</span>Normas</button>
+    <button class="nav-btn" onclick="switchTab('chat')" id="nb-chat"><span>💬</span>Consultar</button>
+  </div>
+</div>
+<script>
+const days=[
+  {name:'Lunes',short:'Lun',meals:[
+    {t:'d',lbl:'Desayuno',ic:'☕',items:['Avena en copos (40g) con leche entera','Canela y un punado de nueces','Cafe o te sin azucar']},
+    {t:'mm',lbl:'Media manana',ic:'🍎',items:['1 manzana pequena + 2 nueces']},
+    {t:'c',lbl:'Comida',ic:'🥣',items:['Ensalada de espinacas con tomate y pepino','Pechuga de pollo a la plancha','Lentejas estofadas (racion pequena)','Pan integral (1 rebanada)']},
+    {t:'me',lbl:'Merienda',ic:'🥛',items:['Yogur natural sin azucar con semillas de chia']},
+    {t:'ce',lbl:'Cena',ic:'🌙',items:['Merluza al horno con limon y ajo','Brocoli al vapor','Tortilla de 2 huevos']}
+  ]},
+  {name:'Martes',short:'Mar',meals:[
+    {t:'d',lbl:'Desayuno',ic:'☕',items:['2 huevos revueltos con tomate','Pan integral tostado (1 rebanada)','Cafe o te sin azucar']},
+    {t:'mm',lbl:'Media manana',ic:'🍎',items:['Punado de almendras (15 unidades)']},
+    {t:'c',lbl:'Comida',ic:'🥣',items:['Ensalada de lechuga, pimiento y zanahoria','Salmon a la plancha','Arroz integral (3 cucharadas cocidas)']},
+    {t:'me',lbl:'Merienda',ic:'🥛',items:['1 pera + queso fresco']},
+    {t:'ce',lbl:'Cena',ic:'🌙',items:['Crema de calabacin con aceite de oliva','Pavo a la plancha','Pepino con aceite y oregano']}
+  ]},
+  {name:'Miercoles',short:'Mie',meals:[
+    {t:'d',lbl:'Desayuno',ic:'☕',items:['Yogur natural con avena (30g) y arandanos','Canela al gusto','Cafe o te sin azucar']},
+    {t:'mm',lbl:'Media manana',ic:'🍎',items:['Palitos de zanahoria o pepino']},
+    {t:'c',lbl:'Comida',ic:'🥣',items:['Gazpacho o ensalada mixta','Ternera magra a la plancha','Garbanzos con espinacas (racion pequena)']},
+    {t:'me',lbl:'Merienda',ic:'🥛',items:['2 nueces + 1 kiwi']},
+    {t:'ce',lbl:'Cena',ic:'🌙',items:['Revuelto de huevos con champinones','Esparragos a la plancha','Ensalada de tomate']}
+  ]},
+  {name:'Jueves',short:'Jue',meals:[
+    {t:'d',lbl:'Desayuno',ic:'☕',items:['Avena (40g) con leche','Medio platano verde pequeno','Canela — Cafe o te sin azucar']},
+    {t:'mm',lbl:'Media manana',ic:'🍎',items:['Punado de nueces o almendras']},
+    {t:'c',lbl:'Comida',ic:'🥣',items:['Ensalada de rugula con tomate cherry','Pollo al horno con hierbas','Quinoa (3-4 cucharadas cocidas)']},
+    {t:'me',lbl:'Merienda',ic:'🥛',items:['Yogur natural sin azucar']},
+    {t:'ce',lbl:'Cena',ic:'🌙',items:['Dorada o lubina al horno','Judias verdes salteadas con ajo','Huevo cocido']}
+  ]},
+  {name:'Viernes',short:'Vie',meals:[
+    {t:'d',lbl:'Desayuno',ic:'☕',items:['2 huevos a la plancha o cocidos','Aguacate con tomate','Cafe o te sin azucar']},
+    {t:'mm',lbl:'Media manana',ic:'🍎',items:['1 manzana + 2 nueces']},
+    {t:'c',lbl:'Comida',ic:'🥣',items:['Sopa de verduras','Atun o bacalao a la plancha','Lentejas (racion pequena)','Pan integral (1 rebanada)']},
+    {t:'me',lbl:'Merienda',ic:'🥛',items:['Queso fresco con un poco de canela']},
+    {t:'ce',lbl:'Cena',ic:'🌙',items:['Tortilla francesa de 2 huevos con champinones','Ensalada de espinacas con aceite de oliva']}
+  ]},
+  {name:'Sabado',short:'Sab',meals:[
+    {t:'d',lbl:'Desayuno',ic:'☕',items:['Avena con leche y fresas frescas','Nueces encima — Cafe o te sin azucar']},
+    {t:'mm',lbl:'Media manana',ic:'🍎',items:['Punado de arandanos o fresas']},
+    {t:'c',lbl:'Comida',ic:'🥣',items:['Ensalada completa con huevo cocido','Pollo asado','Boniato pequeno asado']},
+    {t:'me',lbl:'Merienda',ic:'🥛',items:['Yogur natural + 1 kiwi']},
+    {t:'ce',lbl:'Cena',ic:'🌙',items:['Gambas a la plancha con ajo y limon','Brocoli o coliflor al vapor','Revuelto de verduras']}
+  ]},
+  {name:'Domingo',short:'Dom',meals:[
+    {t:'d',lbl:'Desayuno',ic:'☕',items:['Tortilla de 2 huevos con tomate y queso fresco','Cafe o te sin azucar']},
+    {t:'mm',lbl:'Media manana',ic:'🍎',items:['1 pera o manzana + almendras']},
+    {t:'c',lbl:'Comida',ic:'🥣',items:['Crema de verduras (calabaza, zanahoria, puerro)','Merluza o salmon al horno','Ensalada de garbanzos con pimiento']},
+    {t:'me',lbl:'Merienda',ic:'🥛',items:['Yogur natural con semillas']},
+    {t:'ce',lbl:'Cena',ic:'🌙',items:['Pavo o pollo a la plancha','Esparragos o judias verdes','Ensalada de tomate']}
+  ]}
+];
+const shopping=[
+  {name:'Proteinas',ic:'🥩',items:['Pechuga de pollo','Pavo','Merluza','Salmon','Atun','Bacalao','Huevos (12-18)','Gambas','Ternera magra']},
+  {name:'Verduras',ic:'🥦',items:['Espinacas','Brocoli','Coliflor','Calabacin','Pepino','Tomate','Pimiento','Lechuga','Champinones','Esparragos','Judias verdes','Zanahoria','Boniato']},
+  {name:'Carbohidratos buenos',ic:'🌾',items:['Avena en copos','Pan integral 100%','Arroz integral','Quinoa','Lentejas','Garbanzos']},
+  {name:'Lacteos',ic:'🥛',items:['Yogur natural sin azucar (x7)','Leche entera','Queso fresco']},
+  {name:'Frutas',ic:'🍓',items:['Manzanas','Peras','Kiwis','Fresas','Arandanos','Platanos verdes (1-2)']},
+  {name:'Grasas buenas',ic:'🫒',items:['Aceite de oliva virgen extra','Aguacate','Nueces','Almendras']},
+  {name:'Especias',ic:'🧄',items:['Canela','Oregano','Ajo','Limon','Hierbas provenzales']}
+];
+const rules=[
+  {yes:false,text:'Azucar, miel ni edulcorantes en exceso'},
+  {yes:false,text:'Refrescos, zumos ni alcohol'},
+  {yes:false,text:'Pan blanco, arroz blanco ni pasta blanca'},
+  {yes:false,text:'Fruta muy dulce en exceso (uvas, platano maduro, datiles)'},
+  {yes:true,text:'Agua como bebida principal — 1,5 a 2 litros al dia'},
+  {yes:true,text:'Cafe y te sin azucar, permitidos'},
+  {yes:true,text:'Aceite de oliva virgen extra como grasa principal'},
+  {yes:true,text:'Caminar 15 minutos despues de comer'},
+  {yes:true,text:'Verdura siempre antes del carbohidrato'},
+  {yes:true,text:'Porcion de carbohidrato: un punio cerrado maximo'},
+  {yes:true,text:'Ejercicio moderado 3-4 veces por semana'}
+];
+const quickQs=['Puedo comer arroz blanco de vez en cuando?','Que snacks puedo tomar entre horas?','El cafe con leche esta bien?','Cuanto chocolate negro puedo comer?','Como bajo la glucosa rapido despues de comer?','Puedo beber vino en la cena?','Que fruta es la mejor para mi?','Puedo comer pasta integral?'];
+let currentDay=0;
+function buildDayTabs(){
+  document.getElementById('dayTabs').innerHTML=days.map((d,i)=>
+    `<div class="day-tab${i===0?' active':''}" onclick="selectDay(${i})">${d.short}</div>`).join('');
+}
+function selectDay(i){
+  currentDay=i;
+  document.querySelectorAll('.day-tab').forEach((t,idx)=>t.classList.toggle('active',idx===i));
+  renderDias();
+}
+function renderDias(){
+  const d=days[currentDay];
+  document.getElementById('mainContent').innerHTML=
+    `<div class="tip-box"><strong>Regla:</strong> Verdura primero &rarr; Proteina &rarr; Carbohidrato. Camina 15 min despues.</div>`+
+    d.meals.map(m=>`<div class="meal-card"><div class="meal-header"><div class="meal-icon mi-${m.t}">${m.ic}</div><div class="meal-lbl">${m.lbl}</div></div><div class="meal-body">${m.items.join('<div class="arr">↓</div>')}</div></div>`).join('');
+}
+function renderCompra(){
+  document.getElementById('mainContent').innerHTML=
+    `<div class="section-title">Lista de la compra semanal</div>`+
+    shopping.map(cat=>`<div class="shop-cat"><div class="shop-cat-name">${cat.ic} ${cat.name}</div><div class="shop-items">${cat.items.map(i=>`<span class="shop-chip">${i}</span>`).join('')}</div></div>`).join('');
+}
+function renderNormas(){
+  document.getElementById('mainContent').innerHTML=
+    `<div class="section-title">Normas clave</div><div class="rules-card">${rules.map(r=>`<div class="rule-item"><div class="rule-dot ${r.yes?'rd-yes':'rd-no'}">${r.yes?'✓':'✕'}</div><span>${r.text}</span></div>`).join('')}</div><div class="tip-box" style="margin-top:12px">Con dieta y ejercicio muchas personas vuelven a valores normales en 3-6 meses. Revisa con tu medico cada 3 meses.</div>`;
+}
+function renderChat(){
+  document.getElementById('mainContent').innerHTML=
+    `<div class="specialist-badge"><div class="badge-avatar">🩺</div><div><div class="badge-name">Especialista en Nutricion</div><div class="badge-role">Experto en glucosa y dieta antiinflamatoria</div></div></div>
+    <div class="section-title">Preguntas frecuentes</div>
+    <div class="quick-questions">${quickQs.map(q=>`<button class="qq" onclick="addQ(${JSON.stringify(q)})">${q}</button>`).join('')}</div>
+    <div class="chat-area" id="chatArea">
+      <div style="align-self:flex-start"><div class="bubble-label">Especialista</div><div class="chat-bubble bubble-bot">Hola! Soy tu especialista en nutricion para controlar la glucosa. Preguntame lo que quieras sobre tu dieta, alimentos o habitos saludables. 💚</div></div>
+    </div>`;
+  document.getElementById('chatInput').onkeydown=e=>{if(e.key==='Enter')sendQ()};
+}
+function addQ(q){
+  const area=document.getElementById('chatArea');
+  if(!area)return;
+  area.innerHTML+=`<div style="align-self:flex-end"><div class="chat-bubble bubble-user">${q}</div></div>`;
+  area.scrollTop=area.scrollHeight;
+  area.innerHTML+=`<div style="align-self:flex-start"><div class="bubble-label">Especialista</div><div class="chat-bubble bubble-bot" id="th">...</div></div>`;
+  const answers={
+    'Puedo comer arroz blanco de vez en cuando?':'Si, ocasionalmente y en racion pequena. Preferiblemente mezclado con verdura o proteina para reducir el pico de glucosa. Mejor el integral siempre que puedas.',
+    'Que snacks puedo tomar entre horas?':'Nueces o almendras (punado), yogur natural sin azucar, pepino o zanahoria, queso fresco, o una fruta de bajo IG como manzana o pera.',
+    'El cafe con leche esta bien?':'Si, perfecto. Cafe con leche entera sin azucar es una buena opcion. La grasa de la leche ralentiza la absorcion de la cafeina.',
+    'Cuanto chocolate negro puedo comer?':'2-3 onzas de chocolate negro +85% de cacao al dia es perfecto. Tiene poco azucar, mucho magnesio y mejora la sensibilidad a la insulina.',
+    'Como bajo la glucosa rapido despues de comer?':'Camina 10-15 minutos. Es lo mas efectivo. Los musculos consumen glucosa directamente sin necesitar insulina.',
+    'Puedo beber vino en la cena?':'Mejor evitarlo. El alcohol interfiere con el control de glucosa. Si lo tomas ocasionalmente, una copa de vino tinto seco con comida es lo menos malo.',
+    'Que fruta es la mejor para mi?':'Fresas, arandanos, frambuesas, kiwi, manzana y pera. Todas tienen bajo indice glucemico y mucha fibra. Evita uvas, sandía y platano maduro.',
+    'Puedo comer pasta integral?':'Si, en racion controlada (80g en seco), al dente y acompanada de verdura y proteina. La pasta integral bien cocinada tiene IG moderado.'
+  };
+  setTimeout(()=>{const t=document.getElementById('th');if(t)t.textContent=answers[q]||'Buena pregunta. Consulta con tu medico o nutricionista para una respuesta personalizada a tu caso.';area.scrollTop=area.scrollHeight;},900);
+}
+function sendQ(){
+  const inp=document.getElementById('chatInput');
+  const q=inp.value.trim();
+  if(!q)return;
+  inp.value='';
+  addQ(q);
+}
+function switchTab(tab){
+  ['dias','compra','normas','chat'].forEach(t=>{document.getElementById('nb-'+t).classList.toggle('active',t===tab)});
+  document.getElementById('dayTabs').style.display=tab==='dias'?'flex':'none';
+  document.getElementById('chatInputWrap').style.display=tab==='chat'?'block':'none';
+  if(tab==='dias')renderDias();
+  else if(tab==='compra')renderCompra();
+  else if(tab==='normas')renderNormas();
+  else renderChat();
+}
+buildDayTabs();
+renderDias();
+</script>
+</body>
+</html>
