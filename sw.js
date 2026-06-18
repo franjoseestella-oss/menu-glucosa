@@ -1,4 +1,4 @@
-const CACHE = 'glucosa-v1';
+const CACHE = 'glucosa-v2';
 const ASSETS = [
   '/',
   '/menu_glucosa_app.html',
